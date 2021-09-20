@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { InputGroup,FormControl,Button} from 'react-bootstrap';
 import { coinCount, addCoin, deleteCoin, } from '../../../redux/coinSlice';
@@ -12,14 +12,17 @@ export default function BuyForm(props) {
         amount: 0,
         percentage: "2.3%",
     })   
-    const test = () => {
+    const num =  props.priceUsd -0;
+    useEffect(() => {       
         setBag({
             name: props.name,
-            price: props.price,
+            price: num.toFixed(2),
             amount: money,
             percentage: "2.3%",
-        })
-        dispatch(addCoin(bag));       
+        })                  
+    }, [money])
+    const test = () => {
+       dispatch(addCoin(bag));         
     }
     return (
         <div>

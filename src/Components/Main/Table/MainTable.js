@@ -1,8 +1,10 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect, useRef} from 'react'
 import { ImPlus } from 'react-icons/im';
 import { Button, Modal } from 'react-bootstrap';
 import CoinBag from '../../CoinBag/CoinBag';
 import BuyForm from '../BuyForm/BuyForm';
+import { getDataAsync, mainData , selectCoin } from './../../../redux/mainSlice';
+import { useDispatch , useSelector } from 'react-redux';
 const coinInfo = [
     {
         name: "BTC",
@@ -37,12 +39,19 @@ const coinInfo = [
 ]
 export default function MainTable() {
     const [show, setShow] = useState(false);
-    const [coin, setCoin] = useState({})
+    const [coin, setCoin] = useState({});
+    const [data, setData] = useState()
     const handleClose = () => setShow(false);
+    const main = useSelector(mainData);
     const handleShow = (target) =>{
-        setShow(true);
-        setCoin(target)
-    } 
+        setCoin(target);         
+        setShow(true);       
+    }     
+    const dispatch = useDispatch();  
+     
+    useEffect(() => {
+      dispatch(getDataAsync());          
+    }, [])      
     return (
         <div>
           <table class="table table-dark table-hover">
@@ -51,23 +60,24 @@ export default function MainTable() {
                         <th scope="col">№</th>
                         <th scope="col">Coin</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">%</th>
-                        <th scope="col">Del</th>
+                        <th scope="col">Max value</th>
+                        <th scope="col">Symbol</th>
+                        <th scope="col">Add</th>
                     </tr>
                 </thead>
-                <tbody>                      
-                    {coinInfo.map((el,i)=>
-                        <tr>
-                            <th scope="row">{i+1}</th>
-                            <td>{el.name}</td>
-                            <td>{el.price}</td>
-                            <td>{el.amount}</td>    
-                            <td style={{textAlign:"left"}}>{el.percentage}</td>
-                            <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
-                        </tr>
-                         
-                    )}              
+                <tbody>
+                    {
+                       main.data.coins.map((el,i)=>
+                            <tr onClick={()=>dispatch(selectCoin(el))}>
+                                <th scope="row">{el.rank}</th>
+                                    <td>{el.name}</td>
+                                    <td>{el.priceUsd}</td>
+                                    <td>{el.vwap24Hr}</td>    
+                                    <td>{el.symbol}</td>
+                                    <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
+                            </tr>           
+                        )                          
+                    }                                
                 </tbody>
             </table>
             <>
@@ -76,10 +86,10 @@ export default function MainTable() {
                     <Modal.Title>Buy Modal Window</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                       <BuyForm name={coin.name} price={coin.price}></BuyForm>
+                       <BuyForm name={coin.name} priceUsd={coin.priceUsd}></BuyForm>
                     </Modal.Body>
                     <Modal.Header> 
-                        <Modal.Title>{coin.name + " "+  coin.price}</Modal.Title> 
+                        <Modal.Title>{coin.name} ${coin.priceUsd|0}</Modal.Title> 
                     </Modal.Header>
                 </Modal>
             </>
