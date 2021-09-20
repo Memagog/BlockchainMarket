@@ -13,7 +13,7 @@ export default function App() {
   return (
     <Router>        
         <Switch>
-          <Route path="/"> 
+          <Route exact path="/"> 
             <Main></Main>          
           </Route>
           <Route path="/coin">
