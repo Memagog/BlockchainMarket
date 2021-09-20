@@ -1,40 +1,10 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './CoinBag.scss';
 import { FiMinusSquare } from 'react-icons/fi';
-
-const myBag = [
-    {
-        name: "BTC",
-        price: 46000,
-        amount: 1.200,
-        percentage: "2.3%"
-    },
-    {
-        name: "ETH",
-        price: 4000,
-        amount: 1.200,
-        percentage: "5.3%"
-    },
-    {
-        name: "DOG",
-        price: 1000,
-        amount: 1.200,
-        percentage: "4.3%"
-    },
-    {
-        name: "CHIA",
-        price: 1200,
-        amount: 1.200,
-        percentage: "12.3%"
-    },
-    {
-        name: "XHR",
-        price: 0.333,
-        amount: 2200,
-        percentage: "45.3%"
-    }
-]
-export default function CoinBag() {  
+import { useSelector} from 'react-redux';
+import { coinCount } from '../../redux/coinSlice'
+export default function CoinBag() { 
+    const myBag = useSelector(coinCount)    
     return (
        <div>
          <table class="table table-dark table-hover">
@@ -49,7 +19,7 @@ export default function CoinBag() {
                     </tr>
                 </thead>
                 <tbody>                      
-                    {myBag.map((el,i)=>
+                    {myBag.coin.map((el,i)=>
                         <tr>
                             <th scope="row">{i+1}</th>
                             <td>{el.name}</td>
