@@ -1,0 +1,31 @@
+%display {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    font-size: 24px;
+}
+$text-color: rgb(250, 248, 248);
+.header{
+    @extend %display;
+    
+    .header__coin-bar_container{
+        @extend %display;        
+        color: $text-color;
+        margin-right: 20px;
+        .coin{
+            border: solid $text-color;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+    }
+    .header__bag-container{
+        @extend %display;
+        border: solid $text-color;
+        color: aliceblue;
+        margin-left: 20px;
+        cursor: pointer;
+    }
+    .header__bag-container:hover{
+        background-color: rgb(175, 172, 172);
+    }
+}
