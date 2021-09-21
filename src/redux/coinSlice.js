@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = []
+const initialState = {
+    coins: []
+}
 
 
 
@@ -9,10 +11,10 @@ export const coinSlice = createSlice({
     initialState,
     reducers: {
         addCoin: (state, action)=>{           
-            state.push(action.payload)
+            state.coins.push(action.payload)
         },
-        deleteCoin: (state, action)=>{
-            state.price += action.payload
+        deleteCoin: (state, action)=>{            
+           delete state.coins[action.payload] 
         },
 
     }

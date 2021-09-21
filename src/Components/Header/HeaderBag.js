@@ -1,13 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { GiReceiveMoney } from 'react-icons/gi';
 import { Button, Modal } from 'react-bootstrap';
 import CoinBag from '../CoinBag/CoinBag';
-
+import { useSelector} from 'react-redux';
+import { coinCount } from '../../redux/coinSlice'
 export default function HeaderBag() {
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const myBag = useSelector(coinCount)
+    const handleClose = () => {
+        setShow(false)
+    };
+    const handleShow = () => setShow(true);      
+    const saveSubmit = () => {
+        localStorage.setItem('myBag', JSON.stringify(myBag.coin.coins)); 
+        handleClose()
+    }
     return (
         <div>
            
@@ -28,7 +35,7 @@ export default function HeaderBag() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={saveSubmit}>
                         Save Changes
                     </Button>
                     </Modal.Footer>

@@ -1,16 +1,21 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import './CoinBag.scss';
 import { FiMinusSquare } from 'react-icons/fi';
-import { useSelector} from 'react-redux';
-import { coinCount } from '../../redux/coinSlice'
+import { useSelector, useDispatch} from 'react-redux';
+import { coinCount ,deleteCoin} from '../../redux/coinSlice'
 export default function CoinBag() { 
-    const myBag = useSelector(coinCount)    
+    const myBag = useSelector(coinCount)
+    const dispatch = useDispatch();     
+    useEffect(() => {       
+       
+     }, [myBag])
+     
     return (
        <div>
          <table class="table table-dark table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">№</th>
+                        <th scope="col">Rank</th>
                         <th scope="col">Coin</th>
                         <th scope="col">Price</th>
                         <th scope="col">Amount</th>
@@ -19,14 +24,14 @@ export default function CoinBag() {
                     </tr>
                 </thead>
                 <tbody>                      
-                    {myBag.coin.map((el,i)=>
+                    {myBag.coin.coins.map((el,i)=>
                         <tr>
-                            <th scope="row">{i+1}</th>
+                            <th scope="row">{el.rank}</th>
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.amount}</td>    
                             <td style={{textAlign:"left"}}>{el.percentage}</td>
-                            <td><FiMinusSquare className="button-minus"/></td>  
+                            <td><FiMinusSquare className="button-minus" onClick={()=>dispatch(deleteCoin(i))}/></td>  
                         </tr>
                          
                     )}              
