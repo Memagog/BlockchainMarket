@@ -5,14 +5,23 @@ import BuyForm from '../BuyForm/BuyForm';
 import { getDataAsync, mainData , selectCoin } from './../../../redux/mainSlice';
 import { useDispatch , useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-
+import ReactPaginate from "react-paginate";
+import "./Pagination.scss"
 export default function MainTable() {
+
     const history  = useHistory();
+
     const dispatch = useDispatch();  
+    const main = useSelector(mainData);   
     const [show, setShow] = useState(false);
-    const [coin, setCoin] = useState({});   
+    const [coin, setCoin] = useState({});    
+    
+    const [currentPage, setCurrentPage] = useState(0)
+    const [perPage, setPerPage] = useState(20);  
+    const pageVisited = currentPage * perPage;
+
     const handleClose = () => setShow(false);
-    const main = useSelector(mainData);
+
     const handleShow = (target) =>{
         setCoin(target);         
         setShow(true);       
@@ -21,7 +30,11 @@ export default function MainTable() {
         dispatch(selectCoin(target))
         history.push("/coin")
     }
-     
+    const pageCount = Math.ceil(main.data.coins.length / perPage);
+
+    const changePage = ({ selected }) => {
+       setCurrentPage(selected);
+    };
     useEffect(() => {
       dispatch(getDataAsync());          
     }, [])      
@@ -37,22 +50,40 @@ export default function MainTable() {
                         <th scope="col">Symbol</th>
                         <th scope="col">Add</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {
-                       main.data.coins.map((el,i)=>
-                            <tr>
-                                <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
-                                    <td onClick={()=>checkCoin(el)}>{el.name}</td>
-                                    <td onClick={()=>checkCoin(el)}>{el.priceUsd}</td>
-                                    <td onClick={()=>checkCoin(el)}>{el.vwap24Hr}</td>    
-                                    <td onClick={()=>checkCoin(el)}>{el.symbol}</td>
-                                <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
-                            </tr>           
-                        )                          
-                    }                                
-                </tbody>
-            </table>
+                </thead>                            
+                    <tbody>
+                        {
+                            
+                            main.data.coins.slice(pageVisited, pageVisited + perPage).map(el => 
+                                <tr>
+                                    <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
+                                        <td onClick={()=>checkCoin(el)}>{el.name}</td>
+                                        <td onClick={()=>checkCoin(el)}>{el.priceUsd}</td>
+                                        <td onClick={()=>checkCoin(el)}>{el.vwap24Hr}</td>    
+                                        <td onClick={()=>checkCoin(el)}>{el.symbol}</td>
+                                    <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
+                                </tr>           
+                            )                          
+                        }                                
+                    </tbody>
+                </table>
+                <div className="paginationBttns"> 
+                    <p className="paginationRow">{pageVisited+1 + " - "}{pageVisited+perPage}</p>           
+                      <ReactPaginate
+                        previousLabel={"<"}
+                        nextLabel={">"}
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"paginationBttnsContainer"}
+                        previousLinkClassName={"previousBttn"}
+                        nextLinkClassName={"nextBttn"}
+                        disabledClassName={"paginationDisabled"}
+                        activeClassName={"paginationActive"}
+                      />   
+                    
+                    
+                </div>                               
+          
             <>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header closeButton>
