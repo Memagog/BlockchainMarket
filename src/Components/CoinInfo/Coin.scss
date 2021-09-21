@@ -1,0 +1,16 @@
+.info-container{
+    display: flex;    
+    justify-content: center;
+    align-items: center;
+    .info{
+        min-width: 1080px;
+        font-size: 24px;
+        color: rgb(250, 250, 250);
+        background-color: rgb(10, 10, 10);
+        
+    }
+    
+}
+span{
+    color: "#ff5b5b"
+}

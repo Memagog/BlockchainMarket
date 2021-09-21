@@ -9,7 +9,12 @@ export default function Coin() {
         rank: 1,
         name: "No Coin",
         symbol: "####",
-        priceUsd: "0"
+        priceUsd: "0",
+        marketCapUsd: "",
+        supply:"",
+        volumeUsd24Hr: "",
+        vwap24Hr: "",
+
     })
     useEffect(() => {
         setCoin(data.data.select)
@@ -18,11 +23,17 @@ export default function Coin() {
     }, [])
     return (
         <div className="info-container">            
-                <div>
-                    <p>{coin.rank}</p>
-                    <p>{coin.name}</p>
-                    <p>{coin.symbol}</p>
-                    <p>{coin.priceUsd}</p>
+                <div className="info">
+                    <p>Rank: <span>{coin.rank}</span></p>
+                    <p>CoinName: <span>{coin.name}</span></p>
+                    <p>Symbol: <span>{coin.symbol}</span></p>
+                    <p>MarketCapUsd: <span>{coin.marketCapUsd}</span></p>
+                    <p>supply: <span>{coin.supply}</span></p>
+                    <p>VolumeUsd24Hr: <span>{coin.volumeUsd24Hr}</span></p>
+                    <p>Max Value in 24Hr: <span>{coin.vwap24Hr}</span></p>
+                </div>
+                <div className="Graphic">
+                    
                 </div>             
         </div>
     )
