@@ -6,7 +6,6 @@ import {
   Route,  
 } from "react-router-dom";
 import Main from './Components/Main/Main';
-import CoinBag from './Components/CoinBag/CoinBag';
 import Coin from './Components/CoinInfo/Coin';
 
 export default function App() {
@@ -18,10 +17,7 @@ export default function App() {
           </Route>
           <Route path="/coin">
             <Coin></Coin>
-          </Route>
-          <Route path="/bag">
-            <CoinBag></CoinBag>            
-          </Route>
+          </Route>          
         </Switch>      
     </Router>
   );

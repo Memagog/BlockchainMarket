@@ -1,53 +1,26 @@
-import React,{useState, useEffect, useRef} from 'react'
+import React,{useState, useEffect} from 'react'
 import { ImPlus } from 'react-icons/im';
-import { Button, Modal } from 'react-bootstrap';
-import CoinBag from '../../CoinBag/CoinBag';
+import { Modal } from 'react-bootstrap';
 import BuyForm from '../BuyForm/BuyForm';
 import { getDataAsync, mainData , selectCoin } from './../../../redux/mainSlice';
 import { useDispatch , useSelector } from 'react-redux';
-const coinInfo = [
-    {
-        name: "BTC",
-        price: 46000,
-        amount: 1.200,
-        percentage: "2.3%"
-    },
-    {
-        name: "ETH",
-        price: 4000,
-        amount: 1.200,
-        percentage: "5.3%"
-    },
-    {
-        name: "DOG",
-        price: 1000,
-        amount: 1.200,
-        percentage: "4.3%"
-    },
-    {
-        name: "CHIA",
-        price: 1200,
-        amount: 1.200,
-        percentage: "12.3%"
-    },
-    {
-        name: "XHR",
-        price: 0.333,
-        amount: 2200,
-        percentage: "45.3%"
-    }
-]
+import { useHistory } from 'react-router';
+
 export default function MainTable() {
+    const history  = useHistory();
+    const dispatch = useDispatch();  
     const [show, setShow] = useState(false);
-    const [coin, setCoin] = useState({});
-    const [data, setData] = useState()
+    const [coin, setCoin] = useState({});   
     const handleClose = () => setShow(false);
     const main = useSelector(mainData);
     const handleShow = (target) =>{
         setCoin(target);         
         setShow(true);       
     }     
-    const dispatch = useDispatch();  
+    const checkCoin = (target) => {
+        dispatch(selectCoin(target))
+        history.push("/coin")
+    }
      
     useEffect(() => {
       dispatch(getDataAsync());          
@@ -68,7 +41,7 @@ export default function MainTable() {
                 <tbody>
                     {
                        main.data.coins.map((el,i)=>
-                            <tr onClick={()=>dispatch(selectCoin(el))}>
+                            <tr onClick={()=>checkCoin(el)}>
                                 <th scope="row">{el.rank}</th>
                                     <td>{el.name}</td>
                                     <td>{el.priceUsd}</td>
