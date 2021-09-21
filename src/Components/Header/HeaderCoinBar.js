@@ -1,27 +1,20 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { coinCount } from './../../redux/coinSlice';
 
-const coin = [
-    {
-        name: "BTC",
-        price: 42000
-    },
-    {
-        name: "EHT",
-        price: 4200
-    },
-    {
-        name: "DOG",
-        price: 1000000
-    },
-]
+
 export default function HeaderCoinBar() {
+    const popCoin = useSelector(coinCount)
+    
     return (
         <div className="header__coin-bar_container">
-            {coin.map((e) =>                
+            {
+                popCoin.data.coins.slice(0,3).map((e,i) =>                    
                     <div>
-                        <div className="coin">{e.name}  {e.price}</div>                                          
-                    </div>                
-            )}
+                        <div className="coin">{e.name}  {(e.priceUsd-0).toFixed(2)}</div>                                          
+                    </div>                                                              
+                )
+            }
         </div>
     )
 }

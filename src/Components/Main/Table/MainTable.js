@@ -90,7 +90,7 @@ export default function MainTable() {
                     <Modal.Title>Buy Modal Window</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                       <BuyForm name={coin.name} priceUsd={coin.priceUsd}></BuyForm>
+                       <BuyForm name={coin.name} priceUsd={coin.priceUsd} changePercent={coin.changePercent24Hr}></BuyForm>
                     </Modal.Body>
                     <Modal.Header> 
                         <Modal.Title>{coin.name} ${coin.priceUsd|0}</Modal.Title> 

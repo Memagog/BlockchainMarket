@@ -14,7 +14,7 @@ export const coinSlice = createSlice({
             state.coins.push(action.payload)
         },
         deleteCoin: (state, action)=>{            
-            state.coins.splice(1,action.payload)
+            delete state.coins[action.payload]
         },
 
     }

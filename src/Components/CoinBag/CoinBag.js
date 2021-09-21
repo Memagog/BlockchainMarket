@@ -15,7 +15,7 @@ export default function CoinBag() {
          <table class="table table-dark table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Rank</th>
+                        <th scope="col">#</th>
                         <th scope="col">Coin</th>
                         <th scope="col">Price</th>
                         <th scope="col">Amount</th>
@@ -26,7 +26,7 @@ export default function CoinBag() {
                 <tbody>                      
                     {myBag.coin.coins.map((el,i)=>
                         <tr>
-                            <th scope="row">{el.rank}</th>
+                            <th scope="row">{i+1}</th>
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.amount}</td>    

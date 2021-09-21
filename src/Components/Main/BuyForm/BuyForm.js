@@ -10,7 +10,7 @@ export default function BuyForm(props) {
         name: "",
         price: 0,
         amount: 0,
-        percentage: "2.3%",
+        changePercent24Hr: "2.3%",
     })   
     const num =  props.priceUsd -0;
     useEffect(() => {
@@ -20,7 +20,7 @@ export default function BuyForm(props) {
             name: props.name,
             price: num.toFixed(2),
             amount: money,
-            percentage: "2.3%",
+            changePercent24Hr: props.changePercent,
         })                  
     }, [money])
     
