@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import './Coin.scss'
-import { useSelector } from 'react-redux';
-import { mainData } from '../../redux/mainSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { mainData,getHistoryAsync } from '../../redux/mainSlice';
+import Graphic from './Graphic';
 
 export default function Coin() {
-    const data = useSelector(mainData)
+    const data = useSelector(mainData);   
+    const dispatch = useDispatch();
+    const time = 'm1';
     const [coin, setCoin] = useState({
         rank: 1,
         name: "No Coin",
@@ -16,10 +19,10 @@ export default function Coin() {
         vwap24Hr: "",
 
     })
-    useEffect(() => {
+    useEffect(() => {           
         setCoin(data.data.select)
-        console.log(data.data.select)
-      
+        console.log(data.data.select) 
+        dispatch(getHistoryAsync(data.data.select.id, time));          
     }, [])
     return (
         <div className="info-container">            
@@ -33,7 +36,7 @@ export default function Coin() {
                     <p>Max Value in 24Hr: <span>{coin.vwap24Hr}</span></p>
                 </div>
                 <div className="Graphic">
-                    
+                    <Graphic></Graphic>
                 </div>             
         </div>
     )

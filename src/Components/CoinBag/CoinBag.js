@@ -30,7 +30,7 @@ export default function CoinBag() {
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.amount}</td>    
-                            <td style={{textAlign:"left"}}>{el.percentage}</td>
+                            <td >{el.percentage}</td>
                             <td><FiMinusSquare className="button-minus" onClick={()=>dispatch(deleteCoin(i))}/></td>  
                         </tr>
                          

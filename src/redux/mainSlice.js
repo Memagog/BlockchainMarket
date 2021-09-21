@@ -2,22 +2,34 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 const initialState = {
     coins: [] ,
     status: 'idle',
-    select: {}
+    select: {},
+    history: []
 };
 
 export const getDataAsync = createAsyncThunk(
     'fetchData',
     async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets").then((res)=> res.json())        
-        console.log(response.data)  
+        const response = await fetch("https://api.coincap.io/v2/assets").then((res)=> res.json())   
         return response.data;
       } catch (err) {
         console.log(err)        
       }
     }
 );
-
+export const getHistoryAsync = createAsyncThunk(
+  'getHistory',
+  async (id,time) => {
+   
+    try {     
+      const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`).then((res)=> res.json())        
+      // console.log(response)  
+      return response.data;
+    } catch (err) {
+      console.log(err)        
+    }
+  }
+);
 export const mainSlice = createSlice({
     name: 'main',
     initialState, 
@@ -25,12 +37,24 @@ export const mainSlice = createSlice({
       selectCoin: (state, action)=>{                   
         state.select = action.payload
       },
-    },   
-    extraReducers: {
-      [getDataAsync.fulfilled]: (state, action) => {         
+    },  
+    extraReducers: builder => {
+      builder
+        .addCase(getDataAsync.pending, (state, action) => {
+          state.status = 'loading'
+        })
+        .addCase(getDataAsync.fulfilled, (state, action) => {
           state.coins = action.payload;         
-          state.status = "fin";       
-      },     
+          state.status = "fin";
+        })
+        .addCase(getHistoryAsync.pending, (state, action)=> {
+          state.status = 'loading'
+        })
+        .addCase(getHistoryAsync.fulfilled, (state, action) => {
+          console.log(action.payload)
+          state.history = action.payload;         
+          state.status = "fin";
+        })
     }
 });
 export const { selectCoin } = mainSlice.actions;

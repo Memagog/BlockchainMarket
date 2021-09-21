@@ -41,13 +41,13 @@ export default function MainTable() {
                 <tbody>
                     {
                        main.data.coins.map((el,i)=>
-                            <tr onClick={()=>checkCoin(el)}>
-                                <th scope="row">{el.rank}</th>
-                                    <td>{el.name}</td>
-                                    <td>{el.priceUsd}</td>
-                                    <td>{el.vwap24Hr}</td>    
-                                    <td>{el.symbol}</td>
-                                    <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
+                            <tr>
+                                <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
+                                    <td onClick={()=>checkCoin(el)}>{el.name}</td>
+                                    <td onClick={()=>checkCoin(el)}>{el.priceUsd}</td>
+                                    <td onClick={()=>checkCoin(el)}>{el.vwap24Hr}</td>    
+                                    <td onClick={()=>checkCoin(el)}>{el.symbol}</td>
+                                <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
                             </tr>           
                         )                          
                     }                                
