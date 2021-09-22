@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
     coins: [] ,
     status: 'idle',
@@ -17,19 +18,19 @@ export const getDataAsync = createAsyncThunk(
       }
     }
 );
+
 export const getHistoryAsync = createAsyncThunk(
   'getHistory',
-  async (id,time) => {
-   
+  async (id) => {   
     try {     
       const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`).then((res)=> res.json())        
-      // console.log(response)  
       return response.data;
     } catch (err) {
       console.log(err)        
     }
   }
 );
+
 export const mainSlice = createSlice({
     name: 'main',
     initialState, 
@@ -50,13 +51,13 @@ export const mainSlice = createSlice({
         .addCase(getHistoryAsync.pending, (state, action)=> {
           state.status = 'loading'
         })
-        .addCase(getHistoryAsync.fulfilled, (state, action) => {
-          console.log(action.payload)
+        .addCase(getHistoryAsync.fulfilled, (state, action) => {         
           state.history = action.payload;         
           state.status = "fin";
         })
     }
 });
+
 export const { selectCoin } = mainSlice.actions;
 export const mainData = (state) => state;
 export default mainSlice.reducer

@@ -12,13 +12,7 @@ export default function HeaderBag() {
     const myBag = useSelector(coinCount)
     const handleClose = () => {
         setShow(false)
-    };
-    useEffect(() => {
-        myBag.coin.coins.forEach(e => {
-            
-          console.log()
-        })
-    }, [myBag])
+    };   
     const myMoney = useMemo(() =>{
         let sum = 0;  
         let count = 0;         
@@ -29,11 +23,8 @@ export default function HeaderBag() {
         setProc(count/myBag.coin.coins.length)
        return sum;
     }, [myBag]);
-    const handleShow = () => setShow(true);      
-    const saveSubmit = () => {
-        // localStorage.setItem('myBag', JSON.stringify(myBag.coin.coins)); 
-        handleClose()
-    }
+    const handleShow = () => setShow(true);     
+   
     return (
         <div>
            
@@ -54,7 +45,7 @@ export default function HeaderBag() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={saveSubmit}>
+                    <Button variant="primary" onClick={ handleClose}>
                         Save Changes
                     </Button>
                     </Modal.Footer>

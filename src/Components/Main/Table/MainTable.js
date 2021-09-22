@@ -7,18 +7,21 @@ import { useDispatch , useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactPaginate from "react-paginate";
 import "./Pagination.scss"
+
 export default function MainTable() {
 
     const history  = useHistory();
 
     const dispatch = useDispatch();  
     const main = useSelector(mainData);   
+
     const [show, setShow] = useState(false);
     const [coin, setCoin] = useState({});    
-    
     const [currentPage, setCurrentPage] = useState(0)
     const [perPage, setPerPage] = useState(20);  
+
     const pageVisited = currentPage * perPage;
+    const pageCount = Math.ceil(main.data.coins.length / perPage);
 
     const handleClose = () => setShow(false);
 
@@ -26,21 +29,23 @@ export default function MainTable() {
         setCoin(target);         
         setShow(true);       
     }     
+
     const checkCoin = (target) => {
         dispatch(selectCoin(target))
         history.push("/coin")
-    }
-    const pageCount = Math.ceil(main.data.coins.length / perPage);
+    }   
 
     const changePage = ({ selected }) => {
        setCurrentPage(selected);
     };
+
     useEffect(() => {
       dispatch(getDataAsync());          
-    }, [])      
+    }, [])   
+
     return (
         <div>
-          <table class="table table-dark table-hover">
+            <table class="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -52,8 +57,7 @@ export default function MainTable() {
                     </tr>
                 </thead>                            
                     <tbody>
-                        {
-                            
+                        {                            
                             main.data.coins.slice(pageVisited, pageVisited + perPage).map(el => 
                                 <tr>
                                     <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
@@ -66,7 +70,7 @@ export default function MainTable() {
                             )                          
                         }                                
                     </tbody>
-                </table>
+            </table>
                 <div className="paginationBttns"> 
                     <p className="paginationRow">{pageVisited+1 + " - "}{pageVisited+perPage}</p>           
                       <ReactPaginate

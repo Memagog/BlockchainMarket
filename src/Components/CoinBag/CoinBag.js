@@ -1,15 +1,13 @@
-import React,{useEffect,useState} from 'react';
+import React from 'react';
 import './CoinBag.scss';
 import { FiMinusSquare } from 'react-icons/fi';
 import { useSelector, useDispatch} from 'react-redux';
 import { coinCount ,deleteCoin} from '../../redux/coinSlice'
 export default function CoinBag() { 
+
     const myBag = useSelector(coinCount)
-    const dispatch = useDispatch();     
-    useEffect(() => {       
-       
-     }, [myBag])
-     
+    const dispatch = useDispatch();   
+    
     return (
        <div>
          <table class="table table-dark table-hover">

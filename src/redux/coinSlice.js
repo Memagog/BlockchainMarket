@@ -4,8 +4,6 @@ const initialState = {
     coins: []
 }
 
-
-
 export const coinSlice = createSlice({
     name: "coin",
     initialState,

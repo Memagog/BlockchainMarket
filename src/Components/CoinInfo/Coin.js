@@ -5,9 +5,10 @@ import { mainData,getHistoryAsync } from '../../redux/mainSlice';
 import Graphic from './Graphic';
 
 export default function Coin() {
+
     const data = useSelector(mainData);   
-    const dispatch = useDispatch();
-    const time = 'm1';
+    const dispatch = useDispatch();    
+   
     const [coin, setCoin] = useState({
         rank: 1,
         name: "No Coin",
@@ -19,11 +20,13 @@ export default function Coin() {
         vwap24Hr: "",
 
     })
+
     useEffect(() => {           
         setCoin(data.data.select)
         console.log(data.data.select) 
-        dispatch(getHistoryAsync(data.data.select.id, time));          
+        dispatch(getHistoryAsync(data.data.select.id));          
     }, [])
+    
     return (
         <div className="info-container">            
                 <div className="info">
