@@ -41,14 +41,14 @@ export const mainSlice = createSlice({
     },  
     extraReducers: builder => {
       builder
-        .addCase(getDataAsync.pending, (state, action) => {
+        .addCase(getDataAsync.pending, (state) => {
           state.status = 'loading'
         })
         .addCase(getDataAsync.fulfilled, (state, action) => {
           state.coins = action.payload;         
           state.status = "fin";
         })
-        .addCase(getHistoryAsync.pending, (state, action)=> {
+        .addCase(getHistoryAsync.pending, (state)=> {
           state.status = 'loading'
         })
         .addCase(getHistoryAsync.fulfilled, (state, action) => {         

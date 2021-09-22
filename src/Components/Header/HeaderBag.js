@@ -1,4 +1,4 @@
-import React,{ useState, useEffect} from 'react'
+import React,{ useState } from 'react'
 import { GiReceiveMoney } from 'react-icons/gi';
 import { Button, Modal } from 'react-bootstrap';
 import CoinBag from '../CoinBag/CoinBag';
@@ -28,7 +28,7 @@ export default function HeaderBag() {
     return (
         <div>
            
-            <div className="header__bag-container" onClick={handleShow}>
+            <div className="header__coin-bag" onClick={handleShow}>
                 <GiReceiveMoney/>
                 <span>{myMoney} USD </span>
                 <span style={{paddingLeft: "10px"}}>{isNaN(proc)?0:proc.toFixed(3)} %</span>

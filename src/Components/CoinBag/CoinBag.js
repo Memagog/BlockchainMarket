@@ -2,15 +2,16 @@ import React from 'react';
 import './CoinBag.scss';
 import { FiMinusSquare } from 'react-icons/fi';
 import { useSelector, useDispatch} from 'react-redux';
-import { coinCount ,deleteCoin} from '../../redux/coinSlice'
+import { coinCount ,deleteCoin} from '../../redux/coinSlice';
+
 export default function CoinBag() { 
 
-    const myBag = useSelector(coinCount)
+    const myBag = useSelector(coinCount);
     const dispatch = useDispatch();   
     
     return (
        <div>
-         <table class="table table-dark table-hover">
+         <table className="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -23,7 +24,7 @@ export default function CoinBag() {
                 </thead>
                 <tbody>                      
                     {myBag.coin.coins.map((el,i)=>
-                        <tr>
+                        <tr key={i}>
                             <th scope="row">{i+1}</th>
                             <td>{el.name}</td>
                             <td>{el.price}</td>

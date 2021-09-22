@@ -22,14 +22,13 @@ export default function Coin() {
     })
 
     useEffect(() => {           
-        setCoin(data.data.select)
-        console.log(data.data.select) 
+        setCoin(data.data.select)       
         dispatch(getHistoryAsync(data.data.select.id));          
     }, [])
     
     return (
         <div className="info-container">            
-                <div className="info">
+                <div className="info-container_info">
                     <p>Rank: <span>{coin.rank}</span></p>
                     <p>CoinName: <span>{coin.name}</span></p>
                     <p>Symbol: <span>{coin.symbol}</span></p>

@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import { InputGroup,FormControl,Button} from 'react-bootstrap';
 import { addCoin } from '../../../redux/coinSlice';
+import PropTypes from 'prop-types';
 export default function BuyForm(props) {  
 
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function BuyForm(props) {
         changePercent24Hr: "2.3%",
     })   
 
-    const num =  props.priceUsd -0;
+    const num =  props.priceUsd - 0;
 
     useEffect(() => {                    
         setBag({
@@ -40,3 +41,9 @@ export default function BuyForm(props) {
         </div>
     )
 }
+BuyForm.propTypes = {
+    name: PropTypes.string,
+    priceUsd: PropTypes.string,
+    rank: PropTypes.string,
+    changePercent: PropTypes.string,
+};

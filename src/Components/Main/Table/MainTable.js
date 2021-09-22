@@ -18,7 +18,7 @@ export default function MainTable() {
     const [show, setShow] = useState(false);
     const [coin, setCoin] = useState({});    
     const [currentPage, setCurrentPage] = useState(0)
-    const [perPage, setPerPage] = useState(20);  
+    const [perPage, setPerPage] = useState(0);  
 
     const pageVisited = currentPage * perPage;
     const pageCount = Math.ceil(main.data.coins.length / perPage);
@@ -40,12 +40,13 @@ export default function MainTable() {
     };
 
     useEffect(() => {
+      setPerPage(20)
       dispatch(getDataAsync());          
     }, [])   
 
     return (
         <div>
-            <table class="table table-dark table-hover">
+            <table className="table table-dark table-hover">
                 <thead>
                     <tr>
                         <th scope="col">№</th>
@@ -58,8 +59,8 @@ export default function MainTable() {
                 </thead>                            
                     <tbody>
                         {                            
-                            main.data.coins.slice(pageVisited, pageVisited + perPage).map(el => 
-                                <tr>
+                            main.data.coins.slice(pageVisited, pageVisited + perPage).map((el,i) => 
+                                <tr key={i}>
                                     <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
                                         <td onClick={()=>checkCoin(el)}>{el.name}</td>
                                         <td onClick={()=>checkCoin(el)}>{el.priceUsd}</td>
@@ -71,22 +72,21 @@ export default function MainTable() {
                         }                                
                     </tbody>
             </table>
-                <div className="paginationBttns"> 
-                    <p className="paginationRow">{pageVisited+1 + " - "}{pageVisited+perPage}</p>           
-                      <ReactPaginate
-                        previousLabel={"<"}
-                        nextLabel={">"}
-                        pageCount={pageCount}
-                        onPageChange={changePage}
-                        containerClassName={"paginationBttnsContainer"}
-                        previousLinkClassName={"previousBttn"}
-                        nextLinkClassName={"nextBttn"}
-                        disabledClassName={"paginationDisabled"}
-                        activeClassName={"paginationActive"}
-                      />   
-                    
-                    
-                </div>                               
+
+            <div className="paginationBttns"> 
+                <p className="paginationRow">{pageVisited+1 + " - "}{pageVisited+perPage}</p>           
+                <ReactPaginate
+                    previousLabel={"<"}
+                    nextLabel={">"}
+                    pageCount={pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"paginationBttnsContainer"}
+                    previousLinkClassName={"previousBttn"}
+                    nextLinkClassName={"nextBttn"}
+                    disabledClassName={"paginationDisabled"}
+                    activeClassName={"paginationActive"}
+                />                 
+            </div>          
           
             <>
                 <Modal show={show} onHide={handleClose}>
