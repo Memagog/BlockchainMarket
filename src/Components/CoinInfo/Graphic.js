@@ -23,19 +23,19 @@ export default function App() {
     ]);
     
     useEffect(() => {       
-        setData(graphic.data.history);        
+        setData(graphic.data.history);                 
     }, [graphic])    
     const max = useMemo(() =>{
       let res = [];
-      if(data.length >0 ){
-        data.forEach((e) => {
+      if(graphic.data.history.length >0 ){
+        graphic.data.history.forEach((e) => {
           res.push(e.priceUsd);
         })
       }
       if(res.length>0){
         return Math.max(...res)|0
       }      
-    }, [data]);
+    }, [graphic]);
   return (
     <LineChart width={700} height={900} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
