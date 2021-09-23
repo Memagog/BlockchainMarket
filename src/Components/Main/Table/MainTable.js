@@ -2,7 +2,7 @@ import React,{useState, useEffect} from 'react'
 import { ImPlus } from 'react-icons/im';
 import { Modal } from 'react-bootstrap';
 import BuyForm from '../BuyForm/BuyForm';
-import { getDataAsync, mainData , selectCoin } from './../../../redux/mainSlice';
+import { mainData , selectCoin } from './../../../redux/mainSlice';
 import { useDispatch , useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactPaginate from "react-paginate";
@@ -15,15 +15,20 @@ export default function MainTable() {
     const dispatch = useDispatch();  
     const main = useSelector(mainData);
     
+    const [len, setLen] = useState(0);
     const [show, setShow] = useState(false);
     const [coin, setCoin] = useState({});    
     const [currentPage, setCurrentPage] = useState(0)
     const [perPage, setPerPage] = useState(20);  
 
     const pageVisited = currentPage * perPage;
-    const pageCount = Math.ceil(main.data.coins.length / perPage);
+    const pageCount = Math.ceil(len/ perPage);
 
     const handleClose = () => setShow(false);
+
+    useEffect(() => {
+        setLen(main.data.coins.length)   
+    }, [main])
 
     const handleShow = (target) =>{
         setCoin(target);         
@@ -39,9 +44,7 @@ export default function MainTable() {
        setCurrentPage(selected);
     };
 
-    useEffect(() => {
-      dispatch(getDataAsync());               
-    }, [])   
+  
 
     return (
         <div>       
