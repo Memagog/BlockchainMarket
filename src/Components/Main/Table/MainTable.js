@@ -56,6 +56,7 @@ export default function MainTable() {
                                     <th scope="col">Coin</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Max value</th>
+                                    <th scope="col">Days change</th>
                                     <th scope="col">Symbol</th>
                                     <th scope="col">Add</th>
                                 </tr>
@@ -63,11 +64,13 @@ export default function MainTable() {
                                 <tbody>
                                     {                            
                                         main.data.coins.slice(pageVisited, pageVisited + perPage).map((el,i) => 
+                                            
                                             <tr key={i}>
                                                 <th scope="row" onClick={()=>checkCoin(el)}>{el.rank}</th>
                                                     <td onClick={()=>checkCoin(el)}>{el.name}</td>
-                                                    <td onClick={()=>checkCoin(el)}>{el.priceUsd}</td>
-                                                    <td onClick={()=>checkCoin(el)}>{el.vwap24Hr}</td>    
+                                                    <td onClick={()=>checkCoin(el)}>{el.priceUsd.substring(0, 7)} $</td>
+                                                    <td onClick={()=>checkCoin(el)}>{el.vwap24Hr.substring(0, 7)} $</td>
+                                                    <td onClick={()=>checkCoin(el)}>{((el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr).toFixed(2)}%</td>
                                                     <td onClick={()=>checkCoin(el)}>{el.symbol}</td>
                                                 <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
                                             </tr>           

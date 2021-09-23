@@ -16,6 +16,7 @@ $text-color: rgb(250, 248, 248);
             border: solid $text-color;
             box-sizing: border-box;
             margin-right: 10px;
+            padding: 5px;
         }
     }
     .header__coin-bag{
@@ -24,6 +25,7 @@ $text-color: rgb(250, 248, 248);
         color: aliceblue;
         margin-left: 20px;
         cursor: pointer;
+        padding: 5px;
     }
     .header__coin-bag:hover{
         background-color: rgb(175, 172, 172);
