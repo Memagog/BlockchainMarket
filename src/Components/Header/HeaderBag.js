@@ -15,9 +15,14 @@ export default function HeaderBag() {
     const handleClose = () => {
         setShow(false)
     };
-    useEffect(() => {
-        let local = JSON.parse(localStorage.getItem('coinBag'));
-        setData(local);
+    useEffect(() => { 
+        let local = JSON.parse(localStorage.getItem('coinBag'));       
+        if(local === null){            
+            setData(myBag.coin.coins);
+        }
+        else setData(local)
+           
+        
     }, [myBag])   
     const myMoney = useMemo(() =>{
         let sum = 0;  

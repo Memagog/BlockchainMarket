@@ -20,13 +20,15 @@ export default function CoinBag() {
     }, [myBag])
 
     useEffect(() => {       
-        try{
-            let local = JSON.parse(localStorage.getItem('coinBag'));
-            setTest(local);
-        } catch (error) {
+        let local = JSON.parse(localStorage.getItem('coinBag'));
+        if(local === null){
             setTest(myBag.coin.coins)
-            console.log("localStorage error: " + error)
-        }       
+            console.log("localStorage error")
+        }
+        else {
+            setTest(local);
+        }     
+               
     }, [myBag])
     
     return (
