@@ -3,11 +3,31 @@ import './CoinBag.scss';
 import { FiMinusSquare } from 'react-icons/fi';
 import { useSelector, useDispatch} from 'react-redux';
 import { coinCount ,deleteCoin} from '../../redux/coinSlice';
+import { useEffect, useState } from 'react';
+import { store } from './../../app/store';
+
 
 export default function CoinBag() { 
 
     const myBag = useSelector(coinCount);
-    const dispatch = useDispatch();   
+    const dispatch = useDispatch(); 
+    const [test, setTest] = useState([]);
+
+  
+    useEffect(() => {
+        store.subscribe(()=> localStorage.setItem('coinBag', JSON.stringify(store.getState().coin.coins) ));   
+       
+    }, [myBag])
+
+    useEffect(() => {       
+        try{
+            let local = JSON.parse(localStorage.getItem('coinBag'));
+            setTest(local);
+        } catch (error) {
+            setTest(myBag.coin.coins)
+            console.log("localStorage error: " + error)
+        }       
+    }, [myBag])
     
     return (
        <div>
@@ -23,14 +43,14 @@ export default function CoinBag() {
                     </tr>
                 </thead>
                 <tbody>                      
-                    {myBag.coin.coins.map((el,i)=>
+                    {test.map((el,i)=>
                         <tr key={i}>
                             <th scope="row">{i+1}</th>
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.amount}</td>    
                             <td >{el.percentage}</td>
-                            <td><FiMinusSquare className="button-minus" onClick={()=>dispatch(deleteCoin(i))}/></td>  
+                            <td><FiMinusSquare className="button-minus" onClick={()=>dispatch(deleteCoin(el.id))}/></td>  
                         </tr>
                          
                     )}              

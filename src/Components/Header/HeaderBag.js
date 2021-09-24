@@ -5,24 +5,30 @@ import CoinBag from '../CoinBag/CoinBag';
 import { useSelector} from 'react-redux';
 import { coinCount } from '../../redux/coinSlice'
 import { useMemo } from 'react';
+import { useEffect } from 'react';
 
 export default function HeaderBag() {
     const [show, setShow] = useState(false);
-    const [proc, setProc] = useState(0)
+    const [proc, setProc] = useState(0);
+    const [data, setData] = useState([])
     const myBag = useSelector(coinCount)
     const handleClose = () => {
         setShow(false)
-    };   
+    };
+    useEffect(() => {
+        let local = JSON.parse(localStorage.getItem('coinBag'));
+        setData(local);
+    }, [myBag])   
     const myMoney = useMemo(() =>{
         let sum = 0;  
         let count = 0;         
-        myBag.coin.coins.forEach(e => {
+        data.forEach(e => {
             sum+=(e.amount-0);  
             count+=(e.changePercent24Hr-0);         
         })
-        setProc(count/myBag.coin.coins.length)
+        setProc(count/data.length)
        return sum;
-    }, [myBag]);
+    }, [data]);
     const handleShow = () => setShow(true);     
    
     return (
