@@ -11,7 +11,6 @@ import {
   Legend
 } from "recharts";
 
-
 export default function App() {    
     const graphic = useSelector(mainData);
     const [data, setData] = useState([
@@ -37,7 +36,7 @@ export default function App() {
       }      
     }, [graphic]);
   return (
-    <LineChart width={700} height={900} data={data}>
+    <LineChart width={700} height={700} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis padding={{ left: 40, right: 40 }} />
       <YAxis  type="number" domain={[0, (max+max*0.1)]} />

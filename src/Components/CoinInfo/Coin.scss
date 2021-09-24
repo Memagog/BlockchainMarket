@@ -3,12 +3,30 @@
     justify-content: center;
     align-items: center;
     .info-container_info{
-        min-width: 1080px;
+        min-width: 600px;
         font-size: 24px;
-        color: rgb(250, 250, 250);  
+        color: rgb(250, 250, 250); 
+        .info-container_info_icon{
+            width: 50px;
+            height: auto;
+            margin-bottom: 40px;
+        } 
+        
     }
+   
     background-color: rgb(5, 5, 5);
+}
+.info-container_info_back-button{
+    position: absolute;
+    // align-self: flex-start;
+    // justify-self: flex-start;
 }
 span{
     color: "#ff5b5b"
+}
+.graphic_failed-data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

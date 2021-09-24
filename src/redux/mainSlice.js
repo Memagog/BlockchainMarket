@@ -23,7 +23,7 @@ export const getHistoryAsync = createAsyncThunk(
   'getHistory',
   async (id) => {   
     try {     
-      const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`).then((res)=> res.json())        
+      const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=d1`,{made: 'no-cors'}).then((res)=> res.json())        
       return response.data;
     } catch (err) {
       console.log(err)        

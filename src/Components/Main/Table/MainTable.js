@@ -7,6 +7,7 @@ import { useDispatch , useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactPaginate from "react-paginate";
 import "./Pagination.scss"
+import Reload from '../Reload/Reload';
 
 export default function MainTable() {
 
@@ -20,14 +21,19 @@ export default function MainTable() {
     const [coin, setCoin] = useState({});    
     const [currentPage, setCurrentPage] = useState(0)
     const [perPage, setPerPage] = useState(20);  
-
+    const [status, setStatus] = useState(false)
     const pageVisited = currentPage * perPage;
     const pageCount = Math.ceil(len/ perPage);
 
     const handleClose = () => setShow(false);
 
     useEffect(() => {
-        setLen(main.data.coins.length)   
+           
+        // console.log(main.data.coins.length)
+        if(main.data.status === "fin"&&main.data.coins!==undefined){
+            setStatus(true)
+            setLen(main.data.coins.length)
+        }
     }, [main])
 
     const handleShow = (target) =>{
@@ -47,7 +53,9 @@ export default function MainTable() {
   
 
     return (
-        <div>       
+        <div>   
+                {
+                 main.data.coins?
                 <div>
                         <table className="table table-dark table-hover">
                             <thead>
@@ -107,7 +115,10 @@ export default function MainTable() {
                                 </Modal.Header>
                             </Modal>
                         </>
-                    </div>            
-            </div>
+                    </div>  
+                    :
+                    <Reload/>          
+                }   
+        </div>
     )
 }
