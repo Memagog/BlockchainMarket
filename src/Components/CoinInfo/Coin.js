@@ -8,6 +8,7 @@ import { FaBitcoin } from 'react-icons/fa';
 import { useHistory } from 'react-router';
 
 export default function Coin() {
+    
     const history = useHistory();
     const data = useSelector(mainData);   
     const dispatch = useDispatch();    
@@ -31,36 +32,35 @@ export default function Coin() {
     
     return (
         <div>
-             <Button variant="light" className="info-container_info_back-button" onClick={()=>history.push('/')}>
-                    Back
-                </Button>
-                <div className="info-container"> 
+            <Button variant="light" className="info-container_info_back-button" onClick={()=>history.push('/')}>
+                Back
+            </Button>
+            <div className="info-container"> 
                             
-                <div className="info-container_info">
-                   
+                <div className="info-container_info">                   
                     <FaBitcoin className="info-container_info_icon"/>
                     <p>Rank: <span>{coin.rank}</span></p>
                     <p>CoinName: <span>{coin.name}</span></p>
                     <p>Symbol: <span>{coin.symbol}</span></p>
-                    <p>MarketCapUsd: <span>{coin.marketCapUsd}</span></p>
-                    <p>supply: <span>{coin.supply}</span></p>
-                    <p>VolumeUsd24Hr: <span>{coin.volumeUsd24Hr}</span></p>
-                    <p>Max Value in 24Hr: <span>{coin.vwap24Hr}</span></p>
+                    <p>MarketCapUsd: <span style={{color: "green"}}>{coin.marketCapUsd} $</span></p>
+                    <p>supply: <span style={{color: "green"}}>{coin.supply} </span></p>
+                    <p>VolumeUsd24Hr: <span style={{color: "green"}}>{coin.volumeUsd24Hr} $</span></p>
+                    <p>Max Value in 24Hr: <span style={{color: "green"}}>{coin.vwap24Hr} $</span></p>
                 </div>
-                {
-                    data.data.history?
-                    <div className="graphic">
-                        <Graphic></Graphic>
-                    </div>    
-                    :
-                    <div className="graphic_failed-data">
-                        <Button variant="dark" onClick={()=>dispatch(getHistoryAsync(data.data.select.id))}>Reload Data</Button>
-                        <Spinner animation="border" role="status" >
-                            <p className="visually-hidden">Loading...</p>
-                        </Spinner>                     
-                    </div>         
-                }
-        </div>
+                    {
+                        data.data.history?
+                        <div className="graphic">
+                            <Graphic></Graphic>
+                        </div>    
+                         :
+                        <div className="graphic_failed-data">
+                            <Button variant="dark" onClick={()=>dispatch(getHistoryAsync(data.data.select.id))}>Reload Data</Button>
+                            <Spinner animation="border" role="status" >
+                                <p className="visually-hidden">Loading...</p>
+                            </Spinner>                     
+                        </div>         
+                    }
+                </div>
         </div>
         
     )

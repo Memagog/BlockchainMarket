@@ -7,7 +7,9 @@ import { getDataAsync } from '../../redux/mainSlice';
 import { useEffect } from 'react';
 
 export default function Main() {
-    const dispatch = useDispatch();  
+    
+    const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getDataAsync());               
     }, [])   

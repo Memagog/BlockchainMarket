@@ -8,6 +8,7 @@ export default function HeaderCoinBar() {
     
     const popCoin = useSelector(coinCount);
     const [popular, setPopular] = useState([]);
+    
     useEffect(() => {
         setPopular(popCoin.data.coins);      
     }, [popCoin])

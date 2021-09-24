@@ -12,6 +12,7 @@ import {
 } from "recharts";
 
 export default function App() {    
+
     const graphic = useSelector(mainData);
     const [data, setData] = useState([
       {
@@ -23,7 +24,8 @@ export default function App() {
     
     useEffect(() => {       
         setData(graphic.data.history);                 
-    }, [graphic])    
+    }, [graphic])  
+
     const max = useMemo(() =>{
       let res = [];
       if(graphic.data.history.length >0 ){
@@ -35,6 +37,7 @@ export default function App() {
         return Math.max(...res)|0
       }      
     }, [graphic]);
+
   return (
     <LineChart width={700} height={700} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
@@ -44,13 +47,11 @@ export default function App() {
       <Legend />
       <Line
         type="monotone"
-        dataKey="priceUsd"
-        
+        dataKey="priceUsd"        
         stroke="#f5f5f5"
         activeDot={{ r: 8 }}
       />
       {/* <Line type="monotone"  stroke="#82ca9d" /> */}
-    </LineChart>
-    
+    </LineChart>    
   );
 }

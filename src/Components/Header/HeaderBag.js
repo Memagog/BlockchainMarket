@@ -8,22 +8,24 @@ import { useMemo } from 'react';
 import { useEffect } from 'react';
 
 export default function HeaderBag() {
+
     const [show, setShow] = useState(false);
     const [proc, setProc] = useState(0);
-    const [data, setData] = useState([])
-    const myBag = useSelector(coinCount)
+    const [data, setData] = useState([]);
+    const myBag = useSelector(coinCount);
+
     const handleClose = () => {
         setShow(false)
     };
+
     useEffect(() => { 
         let local = JSON.parse(localStorage.getItem('coinBag'));       
         if(local === null){            
             setData(myBag.coin.coins);
         }
         else setData(local)
-           
-        
     }, [myBag])   
+    
     const myMoney = useMemo(() =>{
         let sum = 0;  
         let count = 0;         
