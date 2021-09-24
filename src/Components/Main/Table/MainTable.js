@@ -42,6 +42,7 @@ export default function MainTable() {
     }     
 
     const checkCoin = (target) => {
+        localStorage.setItem('select-coin', JSON.stringify(target))
         dispatch(selectCoin(target))
         history.push("/coin")
     }   

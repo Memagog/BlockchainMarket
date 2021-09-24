@@ -15,6 +15,7 @@ export default function Coin() {
    
     const [coin, setCoin] = useState({
         rank: 1,
+        id: "",
         name: "No Coin",
         symbol: "####",
         priceUsd: "0",
@@ -25,16 +26,32 @@ export default function Coin() {
 
     })
 
-    useEffect(() => {           
-        setCoin(data.data.select)       
-        dispatch(getHistoryAsync(data.data.select.id));          
+    const getLocalData = () => {   
+        try {
+            let coin = JSON.parse(localStorage.getItem('select-coin'));   
+            return coin
+        } catch (error) {
+            return undefined   
+        }
+    }
+
+    useEffect(() => {
+        let local = getLocalData();
+        if(local !== null && local !== undefined){
+            setCoin(local)
+            dispatch(getHistoryAsync(local.id));   
+        }
+        else{
+            setCoin(data.data.select)       
+            dispatch(getHistoryAsync(data.data.select.id));      
+        }           
     }, [])
     
     return (
         <div>
-            <Button variant="light" className="info-container_info_back-button" onClick={()=>history.push('/')}>
+            {/* <Button variant="light" className="info-container_info_back-button" onClick={()=>history.push('/')}>
                 Back
-            </Button>
+            </Button> */}
             <div className="info-container"> 
                             
                 <div className="info-container_info">                   
@@ -54,7 +71,7 @@ export default function Coin() {
                         </div>    
                          :
                         <div className="graphic_failed-data">
-                            <Button variant="dark" onClick={()=>dispatch(getHistoryAsync(data.data.select.id))}>Reload Data</Button>
+                            <Button variant="dark" onClick={()=>dispatch(getHistoryAsync(coin.id))}>Reload Data</Button>
                             <Spinner animation="border" role="status" >
                                 <p className="visually-hidden">Loading...</p>
                             </Spinner>                     
