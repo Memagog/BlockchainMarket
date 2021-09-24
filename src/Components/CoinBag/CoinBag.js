@@ -4,29 +4,21 @@ import { FiMinusSquare } from 'react-icons/fi';
 import { useSelector, useDispatch} from 'react-redux';
 import { coinCount ,deleteCoin} from '../../redux/coinSlice';
 import { useEffect, useState } from 'react';
-import { store } from './../../app/store';
-
 
 export default function CoinBag() { 
 
     const myBag = useSelector(coinCount);
     const dispatch = useDispatch(); 
-    const [test, setTest] = useState([]);
-
-  
-    useEffect(() => {
-        store.subscribe(()=> localStorage.setItem('coinBag', JSON.stringify(store.getState().coin.coins) ));   
-       
-    }, [myBag])
-
+    const [storage, setStorage] = useState([]);
+    
     useEffect(() => {       
         let local = JSON.parse(localStorage.getItem('coinBag'));
         if(local === null){
-            setTest(myBag.coin.coins)
+            setStorage(myBag.coin.coins)
             console.log("localStorage error")
         }
         else {
-            setTest(local);
+            setStorage(local);
         }     
                
     }, [myBag])
@@ -45,7 +37,7 @@ export default function CoinBag() {
                     </tr>
                 </thead>
                 <tbody>                      
-                    {test.map((el,i)=>
+                    {storage.map((el,i)=>
                         <tr key={i}>
                             <th scope="row">{i+1}</th>
                             <td>{el.name}</td>

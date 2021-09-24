@@ -8,3 +8,4 @@ export const store = configureStore({
       data: mainReducer,
   },
 })
+store.subscribe(()=> localStorage.setItem('coinBag', JSON.stringify(store.getState().coin.coins))); 
