@@ -5,12 +5,18 @@ import { useSelector, useDispatch} from 'react-redux';
 import { coinCount ,deleteCoin} from '../../redux/coinSlice';
 import { useEffect, useState } from 'react';
 import { RiArrowUpDownFill } from 'react-icons/ri';
+import { Modal, Button } from 'react-bootstrap';
 
 export default function CoinBag() { 
 
     const myBag = useSelector(coinCount);
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
+
+    const [item, setItem] = useState("")
+    const [okay, setOkay] = useState(false);
     const [storage, setStorage] = useState([]);
+    const [show, setShow] = useState(false);
+
     useEffect(() => {       
         let local = JSON.parse(localStorage.getItem('coinBag'));
         if(local === null){
@@ -19,10 +25,17 @@ export default function CoinBag() {
         }
         else {
             setStorage(local);
-        }     
-               
+        }           
     }, [myBag])
     
+    const removeCoinBag = () => {
+        setShow(false);        
+        dispatch(deleteCoin(item));                
+    }
+    const endChose = (e) => {
+        setItem(e);
+        setShow(true);
+    }
     return (
        <div>
          <table className="table table-dark table-hover">
@@ -46,12 +59,29 @@ export default function CoinBag() {
                             <td>{(el.amount-0).toFixed(4)}</td>    
                            {(el.changePercent24Hr-0)<0?<td style={{color:"red"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>:<td style={{color:"green"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>}
                             <td>{(el.count-0)}</td>  
-                            <td><FiMinusSquare className="button-minus" onClick={()=>dispatch(deleteCoin(el.id))}/></td>  
-                        </tr>
-                         
+                            <td><FiMinusSquare className="button-minus" onClick={()=>endChose(el.id)}/></td>  
+                        </tr>                         
                     )}              
                 </tbody>
             </table>
+            <div>
+                <Modal
+                    size="sm"
+                    show={show}
+                    onHide={() => setShow(false)}
+                    aria-labelledby="example-modal-sizes-title-sm"
+                    style={{marginTop:"50px"}}
+                >
+                    <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-sm">
+                        Are you sure ?
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Button onClick={()=>removeCoinBag()}>Yes</Button> <Button onClick={()=>setShow(false)} >No</Button>
+                    </Modal.Body>
+                </Modal>
+            </div>
        </div>
     );
 }
