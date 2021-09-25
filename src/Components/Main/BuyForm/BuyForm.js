@@ -21,7 +21,7 @@ export default function BuyForm(props) {
     const num =  props.priceUsd - 0;
 
     const addCoinBag = () => {
-        if (!money.toString().match(/[A-Za-z]/g)) {
+        if (!isNaN(money-0)) {
                dispatch(addCoin(bag))  
                console.log("Why")           
         }        
@@ -63,7 +63,7 @@ export default function BuyForm(props) {
                   Error
                 </Modal.Title>
                 </Modal.Header >
-                <Modal.Body style={{backgroundColor:"red"}}> Please Input only Numbers</Modal.Body>
+                <Modal.Body style={{backgroundColor:"red"}}> Please Input only Numbers <br/> Example (1.2) or (1)</Modal.Body>
             </Modal>
         </div>
     )
