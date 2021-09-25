@@ -29,7 +29,8 @@ export default function BuyForm(props) {
             rank: props.rank,
             name: props.name,
             price: num.toFixed(2),
-            amount: money,
+            amount: money*num,
+            count: money,
             changePercent24Hr: props.changePercent,
         });       
     }, [money])

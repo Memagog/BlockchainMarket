@@ -43,13 +43,13 @@ export default function HeaderBag() {
            
             <div className="header__coin-bag" onClick={handleShow}>
                 <GiReceiveMoney/>
-                <span>{myMoney} USD </span>
+                <span>{myMoney.toFixed(2)} USD </span>
                 <span style={{paddingLeft: "10px"}}>{isNaN(proc)?0:proc.toFixed(3)} %</span>
             </div>
             <>
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={show} onHide={handleClose} size="lg">
                     <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Coin Bag</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <CoinBag></CoinBag>
