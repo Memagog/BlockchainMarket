@@ -79,7 +79,7 @@ export default function MainTable() {
                                                     <td onClick={()=>checkCoin(el)}>{el.name}</td>
                                                     <td onClick={()=>checkCoin(el)}>{el.priceUsd.substring(0, 7)} $</td>
                                                     <td onClick={()=>checkCoin(el)}>{el.vwap24Hr.substring(0, 7)} $</td>
-                                                    {(el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr>0?<td style={{color: "green"}} onClick={()=>checkCoin(el)}>{((el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr).toFixed(2)}%</td>:<td style={{color: "red"}} onClick={()=>checkCoin(el)}>{((el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr).toFixed(2)}%</td>}
+                                                    {(el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr>0?<td style={{color: "green",paddingLeft:"14px"}} onClick={()=>checkCoin(el)}>{((el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr).toFixed(2)}%</td>:<td style={{color: "red"}} onClick={()=>checkCoin(el)}>{((el.vwap24Hr-el.priceUsd)*100/el.vwap24Hr).toFixed(2)}%</td>}
                                                     <td onClick={()=>checkCoin(el)}>{el.symbol}</td>
                                                 <td><ImPlus className="button-plus" onClick={()=>handleShow(el)}></ImPlus></td>  
                                             </tr>           

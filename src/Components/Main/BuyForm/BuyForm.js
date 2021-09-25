@@ -22,8 +22,7 @@ export default function BuyForm(props) {
 
     const addCoinBag = () => {
         if (!isNaN(money-0)) {
-               dispatch(addCoin(bag))  
-               console.log("Why")           
+               dispatch(addCoin(bag));            
         }        
         else {           
             setErrorShow(true)

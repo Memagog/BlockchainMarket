@@ -57,7 +57,7 @@ export default function CoinBag() {
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{(el.amount-0).toFixed(4)}</td>    
-                           {(el.changePercent24Hr-0)<0?<td style={{color:"red"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>:<td style={{color:"green"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>}
+                           {(el.changePercent24Hr-0)<0?<td style={{color:"red"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>:<td style={{color: "green",paddingLeft:"14px"}}>{(el.changePercent24Hr-0).toFixed(2)} %</td>}
                             <td>{(el.count-0)}</td>  
                             <td><FiMinusSquare className="button-minus" onClick={()=>endChose(el.id)}/></td>  
                         </tr>                         
