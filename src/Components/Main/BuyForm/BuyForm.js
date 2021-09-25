@@ -1,13 +1,13 @@
 import React,{useState, useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import { InputGroup,FormControl,Button} from 'react-bootstrap';
+import { InputGroup,FormControl,Button, Modal} from 'react-bootstrap';
 import { addCoin } from '../../../redux/coinSlice';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 export default function BuyForm(props) {  
 
     const dispatch = useDispatch();
-
+    const [errorShow, setErrorShow] = useState(false);
     const [money, setMoney] = useState(0)
     const [bag, setBag] = useState({
         id: uuidv4(),
@@ -20,8 +20,14 @@ export default function BuyForm(props) {
 
     const num =  props.priceUsd - 0;
 
-    const addCoinBag = () => {     
-        dispatch(addCoin(bag))      
+    const addCoinBag = () => {
+        if (!money.toString().match(/[A-Za-z]/g)) {
+               dispatch(addCoin(bag))  
+               console.log("Why")           
+        }        
+        else {           
+            setErrorShow(true)
+        }       
     }
     useEffect(() => {                    
         setBag({
@@ -34,7 +40,7 @@ export default function BuyForm(props) {
             changePercent24Hr: props.changePercent,
         });       
     }, [money])
-
+   
     return (
         <div>
              <InputGroup className="mb-3">
@@ -45,6 +51,20 @@ export default function BuyForm(props) {
                     Buy
                 </Button>
             </InputGroup>
+            <Modal
+                size="sm"
+                show={errorShow}
+                onHide={() => setErrorShow(false)}
+                aria-labelledby="example-modal-sizes-title-sm"               
+                centered
+            >
+                <Modal.Header closeButton style={{backgroundColor:"red"}}>
+                <Modal.Title id="example-modal-sizes-title-sm" style={{backgroundColor:"red"}} >
+                  Error
+                </Modal.Title>
+                </Modal.Header >
+                <Modal.Body style={{backgroundColor:"red"}}> Please Input only Numbers</Modal.Body>
+            </Modal>
         </div>
     )
 }
