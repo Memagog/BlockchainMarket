@@ -12,8 +12,7 @@ export default function CoinBag() {
     const myBag = useSelector(coinCount);
     const dispatch = useDispatch();
 
-    const [item, setItem] = useState("")
-    const [okay, setOkay] = useState(false);
+    const [item, setItem] = useState("");    
     const [storage, setStorage] = useState([]);
     const [show, setShow] = useState(false);
 

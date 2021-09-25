@@ -21,7 +21,7 @@ export default function BuyForm(props) {
     const num =  props.priceUsd - 0;
 
     const addCoinBag = () => {
-        if (!isNaN(money-0)) {
+        if (!isNaN(money-0)&&money>0) {
                dispatch(addCoin(bag));            
         }        
         else {           
@@ -44,8 +44,10 @@ export default function BuyForm(props) {
         <div>
              <InputGroup className="mb-3">
                 <InputGroup.Text>$</InputGroup.Text>
-                <InputGroup.Text>0.00</InputGroup.Text>
-                <FormControl aria-label="Dollar amount (with dot and two decimal places)" onChange={(e)=>{setMoney(e.target.value)}}/>
+                <InputGroup.Text>0.00</InputGroup.Text>               
+                
+                <FormControl aria-label="Dollar amount (with dot and two decimal places)" onChange={(e)=>{setMoney(e.target.value)}} style={errorShow?{color:"red"}:{color:"black"}}/>
+              
                 <Button variant="outline-secondary" id="button-addon2" onClick={addCoinBag}>
                     Buy
                 </Button>
