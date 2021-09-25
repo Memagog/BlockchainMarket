@@ -15,14 +15,14 @@ export default function BuyForm(props) {
         name: "",
         price: 0,
         amount: 0,
-        changePercent24Hr: "2.3%",
+        changePercent24Hr: "",
     })   
 
     const num =  props.priceUsd - 0;
 
     const addCoinBag = () => {
         if (!isNaN(money-0)&&money>0) {
-               dispatch(addCoin(bag));            
+            dispatch(addCoin(bag));            
         }        
         else {           
             setErrorShow(true)
@@ -59,13 +59,14 @@ export default function BuyForm(props) {
                 aria-labelledby="example-modal-sizes-title-sm"               
                 centered
             >
+                
                 <Modal.Header closeButton style={{backgroundColor:"red"}}>
                 <Modal.Title id="example-modal-sizes-title-sm" style={{backgroundColor:"red"}} >
                   Error
                 </Modal.Title>
                 </Modal.Header >
                 <Modal.Body style={{backgroundColor:"red"}}> Please Input only Numbers <br/> Example (1.2) or (1)</Modal.Body>
-            </Modal>
+            </Modal>           
         </div>
     )
 }
