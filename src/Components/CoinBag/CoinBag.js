@@ -89,9 +89,9 @@ export default function CoinBag() {
               Are you sure ?
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <Button onClick={() => removeCoinBag()}>Yes</Button>{' '}
-            <Button onClick={() => setShow(false)}>No</Button>
+          <Modal.Body className = 'modal-body-container' >
+            <Button onClick={() => setShow(false)} className='modal-body-container_button-no' >No</Button>{' '}
+            <Button onClick={() => removeCoinBag()}>Yes</Button>          
           </Modal.Body>
         </Modal>
       </div>

@@ -1,0 +1,10 @@
+
+.modal-body-container{
+    display: flex;
+    justify-content: flex-end;
+    .modal-body-container_button-no{
+        margin-right: 8px;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+}
