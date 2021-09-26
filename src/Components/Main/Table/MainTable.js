@@ -67,7 +67,7 @@ export default function MainTable() {
                     <th scope="row" onClick={() => checkCoin(el)}>{el.rank}</th>
                     <td onClick={() => checkCoin(el)}>{el.name}</td>
                     <td onClick={() => checkCoin(el)}>
-                      {el.priceUsd.substring(0, 7)} $
+                      <div className = 'price-row' data-hover={`${el.priceUsd} $`}>{el.priceUsd.substring(0, 9)} $</div> 
                     </td>
                     <td onClick={() => checkCoin(el)}>
                       {el.vwap24Hr.substring(0, 7)} $
@@ -78,9 +78,8 @@ export default function MainTable() {
                         onClick={() => checkCoin(el)}
                       >
                         {(
-                          ((el.vwap24Hr - el.priceUsd) * 100) /
-                          el.vwap24Hr
-                        ).toFixed(2)}
+                          (el.vwap24Hr - el.priceUsd) * 100 / el.vwap24Hr
+                        ).toFixed(4)}
                         %
                       </td>
                     ) : (
@@ -91,7 +90,7 @@ export default function MainTable() {
                         {(
                           ((el.vwap24Hr - el.priceUsd) * 100) /
                           el.vwap24Hr
-                        ).toFixed(2)}
+                        ).toFixed(4)}
                         %
                       </td>
                     )}

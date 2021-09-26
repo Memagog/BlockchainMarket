@@ -24,3 +24,31 @@
     color: rgb(155, 238, 147);
     cursor: pointer;
 }
+
+.price-row {
+  position: relative; 
+}
+
+.price-row:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  width: 200px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  transition: opacity 0.6s ease-in-out;
+
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 110%;
+}
+
+.price-row:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
