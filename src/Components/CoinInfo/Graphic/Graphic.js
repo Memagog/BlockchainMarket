@@ -1,6 +1,6 @@
 import React,{ useEffect, useState, useMemo } from "react";
 import { useSelector } from 'react-redux';
-import { mainData } from './../../redux/mainSlice';
+import { mainData } from '../../../redux/mainSlice';
 import {
   LineChart,
   Line,
@@ -28,12 +28,12 @@ export default function App() {
 
   const max = useMemo(() =>{
     let res = [];
-    if (graphic.data.history.length > 0){
+    if (graphic.data.history.length > 0) {
       graphic.data.history.forEach((e) => {
         res.push(e.priceUsd);
       })
     }
-    if (res.length > 0){
+    if (res.length > 0) {
         return Math.max(...res) | 0
     }      
   }, [graphic]);

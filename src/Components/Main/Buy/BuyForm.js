@@ -4,6 +4,7 @@ import { InputGroup, FormControl, Button, Modal } from 'react-bootstrap';
 import { addCoin } from '../../../redux/coinSlice';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
+import ErrorWindow from './../../Error/ErrorWindow';
 export default function BuyForm(props) {
   const dispatch = useDispatch();
   const [errorShow, setErrorShow] = useState(false);
@@ -18,6 +19,10 @@ export default function BuyForm(props) {
   });
 
   const num = props.priceUsd - 0;
+
+  const errorView = () => {
+    setErrorShow(false)
+  }
 
   const addCoinBag = () => {
     if (!isNaN(money - 0) && money > 0) {
@@ -58,25 +63,7 @@ export default function BuyForm(props) {
           Buy
         </Button>
       </InputGroup>
-      <Modal
-        size="sm"
-        show={errorShow}
-        onHide={() => setErrorShow(false)}
-        aria-labelledby="example-modal-sizes-title-sm"
-        centered
-      >
-        <Modal.Header closeButton style={{ backgroundColor: 'red' }}>
-          <Modal.Title
-            id="example-modal-sizes-title-sm"
-            style={{ backgroundColor: 'red' }}
-          >
-            Error
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ backgroundColor: 'red' }}>
-          Please Input only Numbers <br /> Example (1.2) or (1)
-        </Modal.Body>
-      </Modal>
+      <ErrorWindow errorShow={errorShow} errorView={errorView} errorText={`Input only Numbers: (1.2) or (1)`}/>      
     </div>
   );
 }

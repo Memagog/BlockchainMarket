@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import './Coin.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { mainData, getHistoryAsync } from '../../redux/mainSlice';
-import Graphic from './Graphic';
+import Graphic from './Graphic/Graphic';
 import { Button, Spinner } from 'react-bootstrap';
 import { FaBitcoin } from 'react-icons/fa';
-import { useHistory } from 'react-router';
+import ErrorWindow from './../Error/ErrorWindow';
 
 export default function Coin() {
 
-  const history = useHistory();
   const data = useSelector(mainData);
   const dispatch = useDispatch();
+  const [errorShow, setErrorShow] = useState(true);
   const [coin, setCoin] = useState({
     rank: 1,
     id: '',
@@ -24,6 +24,14 @@ export default function Coin() {
     vwap24Hr: '',
   });
 
+  const errorView = () => {    
+    try {
+       dispatch(getHistoryAsync(coin.id))
+    } catch (error) {
+      setErrorShow(false)
+    }   
+  };
+
   const getLocalData = () => {
     try {
       let coin = JSON.parse(localStorage.getItem('select-coin'));
@@ -33,7 +41,7 @@ export default function Coin() {
     }
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     let local = getLocalData();
     if (local !== null && local !== undefined) {
       setCoin(local);
@@ -43,7 +51,11 @@ export default function Coin() {
       dispatch(getHistoryAsync(data.data.select.id));
     }
   }, []);
-
+  useEffect(() => {
+    if (!data.data.history) {
+      setErrorShow(true);
+    }
+  }, [])
   return (
     <div>
       <div className="info-container">
@@ -76,19 +88,24 @@ export default function Coin() {
             <Graphic />
           </div>
         ) : (
-          <div className="graphic_failed-data">
-            <Button
+          <div className="graphic_failed-data" >
+            {/* <Button
               variant="dark"
               onClick={() => dispatch(getHistoryAsync(coin.id))}
             >
               Reload Data
             </Button>
-            <Spinner animation="border" role="status">
+            <Spinner animation="border" role="status" >
               <p className="visually-hidden">Loading...</p>
-            </Spinner>
-          </div>
+            </Spinner> */}
+          
+            <div className="error-window">
+              <ErrorWindow errorShow={errorShow} errorView={errorView} errorText={`Failed data loaded`}/>
+            </div>
+           </div>
         )}
       </div>
+     
     </div>
   );
 }
