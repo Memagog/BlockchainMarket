@@ -24,6 +24,14 @@ export default function MainTable() {
   const pageCount = Math.ceil(len / perPage);
 
   useEffect(() => {
+    let initial = JSON.parse(localStorage.getItem('coinBag'));
+    if ( initial.length === 0 ){
+      setShowInitialModal(true);     
+    }
+    console.log('initial')
+    console.log(initial.length === 0)
+  }, [])
+  useEffect(() => {
     if (main.data.status === 'fin' && main.data.coins !== undefined) {
       setLen(main.data.coins.length);
     }
@@ -104,9 +112,6 @@ export default function MainTable() {
                   </tr>
                 ))}
             </tbody>
-            <button onClick={()=>setShowInitialModal(true)}>
-              Initital
-            </button>
           </table>
           <PaginationComponent
             pageVisited={pageVisited}

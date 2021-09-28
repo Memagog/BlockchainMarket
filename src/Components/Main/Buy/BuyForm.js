@@ -9,15 +9,8 @@ export default function BuyForm(props) {
   const dispatch = useDispatch();
   const [errorShow, setErrorShow] = useState(false);
   const [money, setMoney] = useState(0)
-  const [bag, setBag] = useState({
-    id: uuidv4(),
-    rank: 0,
-    name: '',
-    price: 0,
-    amount: 0,
-    changePercent24Hr: '',
-  });
-
+  const [bag, setBag] = useState({});
+  const [flag, setFlag] = useState(false)
   const num = props.priceUsd - 0;
 
   const errorView = () => {
@@ -25,6 +18,7 @@ export default function BuyForm(props) {
   }
 
   const addCoinBag = () => {
+    setFlag(!flag);
     if (!isNaN(money - 0) && money > 0) {
       dispatch(addCoin(bag));
     } else {
@@ -41,7 +35,7 @@ export default function BuyForm(props) {
       count: money,
       changePercent24Hr: props.changePercent,
     });
-  }, [money]);
+  }, [money, flag]);
 
   return (
     <div>

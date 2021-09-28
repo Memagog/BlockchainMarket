@@ -33,14 +33,14 @@ export default function InitialCoinBuy(props) {
       amount: money * target.priceUsd,
       count: money,
       changePercent24Hr: target.changePercent24Hr,
-    });
-
+    });    
     setShow(true);
   };
-
+  
   const dispatchInitialBag = () => {
     dispatch(createBag(coin));
     localStorage.setItem('coinBag', JSON.stringify(initialData.coin.initial));
+    localStorage.setItem('initialCoinBag', JSON.stringify(initialData.coin.initial));
     setShow(false);
     console.log(initialData.coin.initial);
   };
@@ -52,7 +52,7 @@ export default function InitialCoinBuy(props) {
         </Modal.Header>
         <Modal.Body>
           <InputGroup className="mb-3">
-            <InputGroup.Text onChange={e => setName(e)}>
+            <InputGroup.Text >
               Coin name
             </InputGroup.Text>
             <FormControl
@@ -110,7 +110,7 @@ export default function InitialCoinBuy(props) {
           </table>
         </Modal.Footer>
       </Modal>
-      <ModalAgree show={show} onHide={() => setShow(false)} func = {dispatchInitialBag}/>
+      <ModalAgree show={show} onHide={() => setShow(false)} func = {()=>dispatchInitialBag()}/>
     </div>
   );
 }

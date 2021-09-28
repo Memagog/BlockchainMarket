@@ -22,6 +22,19 @@ export const coinSlice = createSlice({
       let t = state.coins.findIndex(e => e.id === action.payload);
       state.coins.splice(t, 1);
     },
+    shopCoin: (state, action) => {     
+      if(action.payload.count === 0){
+          let t = state.coins.findIndex(e => e.id === action.payload.id);
+          state.coins.splice(t, 1);
+      }
+      let t = state.coins.map(e => {       
+        if(e.id === action.payload.id){
+          return e = action.payload
+        }
+        else return e
+      });
+      state.coins = t;
+    },
     createBag: (state, action) => {     
       state.initial.push(action.payload);                  
       state.coins = state.initial;
@@ -29,6 +42,6 @@ export const coinSlice = createSlice({
   },
 });
 
-export const { addCoin, deleteCoin, createBag } = coinSlice.actions;
+export const { addCoin, deleteCoin, createBag, shopCoin } = coinSlice.actions;
 export const coinCount = state => state;
 export default coinSlice.reducer;
