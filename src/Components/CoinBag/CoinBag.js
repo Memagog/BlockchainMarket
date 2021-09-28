@@ -6,6 +6,7 @@ import { coinCount, deleteCoin } from '../../redux/coinSlice';
 import { useEffect, useState } from 'react';
 import { RiArrowUpDownFill } from 'react-icons/ri';
 import { Modal, Button } from 'react-bootstrap';
+import ModalAgree from '../ModalAgree/ModalAgree';
 
 export default function CoinBag() { 
 
@@ -76,25 +77,7 @@ export default function CoinBag() {
           ))}
         </tbody>
       </table>
-      <div>
-        <Modal
-          size="sm"
-          show={show}
-          onHide={() => setShow(false)}
-          aria-labelledby="example-modal-sizes-title-sm"
-          style={{ marginTop: '50px' }}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title id="example-modal-sizes-title-sm">
-              Are you sure ?
-            </Modal.Title>
-          </Modal.Header>
-          <Modal.Body className = 'modal-body-container' >
-            <Button onClick={() => setShow(false)} className='modal-body-container_button-no' >No</Button>{' '}
-            <Button onClick={() => removeCoinBag()}>Yes</Button>          
-          </Modal.Body>
-        </Modal>
-      </div>
+      <ModalAgree show={show} onHide={() => setShow(false)} func = {() => removeCoinBag()}/>
     </div>
   );
 }

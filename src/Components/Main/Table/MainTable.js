@@ -7,6 +7,7 @@ import './Pagination.scss';
 import Reload from '../Reload/Reload';
 import BuyModalWindow from '../Buy/BuyModalWindow';
 import PaginationComponent from './PaginationComponent';
+import InitialCoinBuy from '../InitialBag/InitialCoinBuy';
 
 export default function MainTable() {
   const history = useHistory();
@@ -14,14 +15,13 @@ export default function MainTable() {
   const dispatch = useDispatch();
   const main = useSelector(mainData);
   const [len, setLen] = useState(0);
-  const [show, setShow] = useState(false);
+  const [showByModal, setShowByModal] = useState(false);
+  const [showInitialModal, setShowInitialModal] = useState(false);
   const [coin, setCoin] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
   const [perPage, setPerPage] = useState(20);
   const pageVisited = currentPage * perPage;
   const pageCount = Math.ceil(len / perPage);
-
-  const handleClose = () => setShow(false);
 
   useEffect(() => {
     if (main.data.status === 'fin' && main.data.coins !== undefined) {
@@ -31,7 +31,7 @@ export default function MainTable() {
 
   const handleShow = target => {
     setCoin(target);
-    setShow(true);
+    setShowByModal(true);
   };
 
   const checkCoin = target => {
@@ -104,6 +104,9 @@ export default function MainTable() {
                   </tr>
                 ))}
             </tbody>
+            <button onClick={()=>setShowInitialModal(true)}>
+              Initital
+            </button>
           </table>
           <PaginationComponent
             pageVisited={pageVisited}
@@ -112,12 +115,13 @@ export default function MainTable() {
             changePage={changePage}
           />
           <BuyModalWindow
-            show={show}
-            handleClose={handleClose}
+            show={showByModal}
+            handleClose={() => setShowByModal(false)}
             name={coin.name}
             priceUsd={coin.priceUsd}
             changePercent={coin.changePercent24Hr}
           />
+          <InitialCoinBuy show={showInitialModal} handleClose={() => setShowInitialModal(false)}/>
         </div>
       ) : (
         <Reload />
