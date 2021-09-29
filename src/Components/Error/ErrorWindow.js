@@ -1,5 +1,5 @@
-import React from 'react'
-import { Modal } from 'react-bootstrap'
+import React from 'react';
+import { Modal } from 'react-bootstrap';
 
 export default function ErrorWindow(props) {
   return (
@@ -22,5 +22,5 @@ export default function ErrorWindow(props) {
         {props.errorText}
       </Modal.Body>
     </Modal>
-  )
+  );
 }

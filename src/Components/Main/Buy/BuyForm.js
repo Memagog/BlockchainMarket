@@ -1,38 +1,36 @@
-import React,{ useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { InputGroup, FormControl, Button, Modal } from 'react-bootstrap';
-import { addCoin, coinCount, createBag } from '../../../redux/coinSlice';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { addCoin, createBag } from '../../../redux/coinSlice';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorWindow from './../../Error/ErrorWindow';
 export default function BuyForm(props) {
   const dispatch = useDispatch();
-  const initialData = useSelector(coinCount);
   const [errorShow, setErrorShow] = useState(false);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
   const [bag, setBag] = useState({});
-  const [flag, setFlag] = useState(false)
+  const [flag, setFlag] = useState(false);
   const num = props.priceUsd - 0;
 
   const errorView = () => {
-    setErrorShow(false)
-  }
+    setErrorShow(false);
+  };
 
   const addCoinBag = () => {
     setFlag(!flag);
     if (!isNaN(count - 0) && count > 0) {
-      if(props.init === 'buy'){
+      if (props.init === 'buy') {
         dispatch(addCoin(bag));
+      } else {
+        dispatch(createBag(bag));
       }
-      else {
-        dispatch(createBag(bag));     
-      }    
-    } else {      
+    } else {
       setErrorShow(true);
     }
   };
+
   useEffect(() => {
-    console.log(props)
     setBag({
       id: uuidv4(),
       rank: props.rank,
@@ -65,7 +63,11 @@ export default function BuyForm(props) {
           Buy
         </Button>
       </InputGroup>
-      <ErrorWindow errorShow={errorShow} errorView={errorView} errorText={`Input only Numbers: (1.2) or (1)`}/>      
+      <ErrorWindow
+        errorShow={errorShow}
+        errorView={errorView}
+        errorText={`Input only Numbers: (1.2) or (1)`}
+      />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { ImPlus } from 'react-icons/im';
 import { RiArrowUpDownFill } from 'react-icons/ri';
@@ -9,8 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import BuyModalWindow from '../Buy/BuyModalWindow';
 
 export default function InitialCoinBuy(props) {
-  
-  const filter = useSelector(mainData);  
+  const filter = useSelector(mainData);
   const [show, setShow] = useState(false);
   const [coin, setCoin] = useState({});
   const [name, setName] = useState('');
@@ -26,10 +25,10 @@ export default function InitialCoinBuy(props) {
       id: uuidv4(),
       rank: target.rank,
       name: target.name,
-      priceUsd: target.priceUsd,      
+      priceUsd: target.priceUsd,
       changePercent24Hr: target.changePercent24Hr,
-      symbol: target.symbol
-    });    
+      symbol: target.symbol,
+    });
     setShow(true);
   };
 
@@ -41,18 +40,16 @@ export default function InitialCoinBuy(props) {
         </Modal.Header>
         <Modal.Body>
           <InputGroup>
-            <InputGroup.Text >
-              Coin name
-            </InputGroup.Text>
+            <InputGroup.Text>Coin name</InputGroup.Text>
             <FormControl
               onChange={e => {
                 setName(e.target.value);
               }}
               aria-label="Coin name"
-            />            
+            />
           </InputGroup>
         </Modal.Body>
-        <Modal.Footer style = {{ paddingTop: '40px' }}>
+        <Modal.Footer style={{ paddingTop: '40px' }}>
           <table className="table table-dark table-hover">
             <thead>
               <tr>
@@ -91,16 +88,16 @@ export default function InitialCoinBuy(props) {
             </tbody>
           </table>
         </Modal.Footer>
-      </Modal>     
-       <BuyModalWindow
-          show={show}
-          handleClose={() => setShow(false)}
-          name={coin.name}
-          priceUsd={coin.priceUsd}
-          changePercent={coin.changePercent24Hr}
-          symbol = {coin.symbol}
-          init = {'initialBuy'}
-        />
+      </Modal>
+      <BuyModalWindow
+        show={show}
+        handleClose={() => setShow(false)}
+        name={coin.name}
+        priceUsd={coin.priceUsd}
+        changePercent={coin.changePercent24Hr}
+        symbol={coin.symbol}
+        init={'initialBuy'}
+      />
     </div>
   );
 }

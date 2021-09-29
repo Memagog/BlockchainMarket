@@ -3,12 +3,10 @@ import './Coin.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { mainData, getHistoryAsync } from '../../redux/mainSlice';
 import Graphic from './Graphic/Graphic';
-import { Button, Spinner } from 'react-bootstrap';
 import { FaBitcoin } from 'react-icons/fa';
 import ErrorWindow from './../Error/ErrorWindow';
 
 export default function Coin() {
-
   const data = useSelector(mainData);
   const dispatch = useDispatch();
   const [errorShow, setErrorShow] = useState(true);
@@ -24,12 +22,12 @@ export default function Coin() {
     vwap24Hr: '',
   });
 
-  const errorView = () => {    
+  const errorView = () => {
     try {
-       dispatch(getHistoryAsync(coin.id))
+      dispatch(getHistoryAsync(coin.id));
     } catch (error) {
-      setErrorShow(false)
-    }   
+      setErrorShow(false);
+    }
   };
 
   const getLocalData = () => {
@@ -41,7 +39,7 @@ export default function Coin() {
     }
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     let local = getLocalData();
     if (local !== null && local !== undefined) {
       setCoin(local);
@@ -51,37 +49,50 @@ export default function Coin() {
       dispatch(getHistoryAsync(data.data.select.id));
     }
   }, []);
+
   useEffect(() => {
     if (!data.data.history) {
       setErrorShow(true);
     }
-  }, [])
+  }, []);
+
   return (
     <div>
       <div className="info-container">
         <div className="info-container_info">
-         
           <p>
-             <FaBitcoin className="info-container_info_icon" />
-             <span>{coin.name}</span>
+            <FaBitcoin className="info-container_info_icon" />
+            <span>{coin.name}</span>
           </p>
-          <p>           
-             <span>Rank: </span> <span>{coin.rank}</span>
+          <p>
+            <span>Rank: </span> <span>{coin.rank}</span>
           </p>
           <p>
             <span>Symbol: </span> <span>{coin.symbol}</span>
           </p>
           <p>
-            <span>Capital: </span><span style={{ color: 'green' }}>{(coin.marketCapUsd-0).toFixed(2)}$</span>
+            <span>Capital: </span>
+            <span style={{ color: 'green' }}>
+              {(coin.marketCapUsd - 0).toFixed(2)}$
+            </span>
           </p>
           <p>
-            <span>supply: </span><span style={{ color: 'green' }}>{(coin.supply-0).toFixed(4)} </span>
+            <span>supply: </span>
+            <span style={{ color: 'green' }}>
+              {(coin.supply - 0).toFixed(4)}{' '}
+            </span>
           </p>
           <p>
-            <span>Volume: </span><span style={{ color: 'green' }}>{(coin.volumeUsd24Hr-0).toFixed(2)}$</span>
+            <span>Volume: </span>
+            <span style={{ color: 'green' }}>
+              {(coin.volumeUsd24Hr - 0).toFixed(2)}$
+            </span>
           </p>
           <p>
-            <span>Max Value: </span><span style={{ color: 'green' }}>{(coin.vwap24Hr-0).toFixed(2)}$</span>
+            <span>Max Value: </span>
+            <span style={{ color: 'green' }}>
+              {(coin.vwap24Hr - 0).toFixed(2)}$
+            </span>
           </p>
         </div>
         {data.data.history ? (
@@ -89,24 +100,17 @@ export default function Coin() {
             <Graphic />
           </div>
         ) : (
-          <div className="graphic_failed-data" >
-            {/* <Button
-              variant="dark"
-              onClick={() => dispatch(getHistoryAsync(coin.id))}
-            >
-              Reload Data
-            </Button>
-            <Spinner animation="border" role="status" >
-              <p className="visually-hidden">Loading...</p>
-            </Spinner> */}
-          
+          <div className="graphic_failed-data">
             <div className="error-window">
-              <ErrorWindow errorShow={errorShow} errorView={errorView} errorText={`Failed data loaded`}/>
+              <ErrorWindow
+                errorShow={errorShow}
+                errorView={errorView}
+                errorText={`Failed data loaded`}
+              />
             </div>
-           </div>
+          </div>
         )}
       </div>
-     
     </div>
   );
 }
