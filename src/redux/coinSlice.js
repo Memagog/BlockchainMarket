@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const local = () => {
-  let res = localStorage.getItem('coinBag');  
-  if ( res !== 'null' && res !== 'undefined' ) {
+  let res = localStorage.getItem('coinBag'); 
+  if ( res !== null ) {
     return JSON.parse(res);
   } else return [];
 };
 const initialState = {
-  coins: local(),
+  coins: local()||[],
   initial: [],
 };
 
