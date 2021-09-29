@@ -53,8 +53,16 @@ export default function HeaderBag() {
           <span className="pre-procentage">
             {isNaN(proc) ? 0 : proc.toFixed(3)}%
           </span>
-          <span className="dif-procentage">
-           ({initialDif === 0?'0.0':initialDif.toFixed(2)}%)
+          <span className="dif-procentage">            
+            {initialDif > 9999 || initialDif < 1 ? (
+                <td>
+                  <div className = 'hover-row' data-hover={`${initialDif}%`}>
+                    ({initialDif === 0?'0.0':(initialDif+"").substring(0,4)}...%)
+                  </div>
+                </td>
+              ) : (
+                <td>({initialDif === 0?'0.0':(initialDif+"").substring(0,4)}...%)</td>
+              )}          
           </span>
         </div>        
       </div>
