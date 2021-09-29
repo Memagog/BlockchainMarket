@@ -2,7 +2,7 @@ import React from 'react';
 import './Main.scss';
 import Header from './../Header/Header';
 import MainTable from './Table/MainTable';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getDataAsync } from '../../redux/mainSlice';
 import { useEffect } from 'react';
 
@@ -15,10 +15,10 @@ export default function Main() {
 
   return (
     <div className="container">
-      <div className="header">
+      <div className="container_header">
         <Header />
       </div>
-      <div className="table">
+      <div className="container_table">
         <MainTable />
       </div>
     </div>

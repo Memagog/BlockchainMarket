@@ -8,3 +8,8 @@
         border-color: #6c757d;
     }
 }
+@media (max-width: 500px) {
+    .modal-body{
+        padding: 0px;
+    }
+}

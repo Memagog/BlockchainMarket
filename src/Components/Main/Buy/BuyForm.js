@@ -33,6 +33,7 @@ export default function BuyForm(props) {
       price: num.toFixed(2),
       amount: money * num,
       count: money,
+      symbol: props.symbol,
       changePercent24Hr: props.changePercent,
     });
   }, [money, flag]);

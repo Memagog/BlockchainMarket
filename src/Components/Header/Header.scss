@@ -2,32 +2,105 @@
     display: flex;
     justify-content: space-around;
     flex-direction: row;
-    font-size: 24px;
+    font-size: 18px;
 }
 $text-color: rgb(250, 248, 248);
 .header{
     @extend %display;
-    
+    padding: 10px;
     .header__coins_popular-list{
-        @extend %display;        
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        // text-align: flex-end;
+        align-items: flex-end;
+        font-size: 18px;  
         color: $text-color;
         margin-right: 20px;
+       
         .header__coins_popular-list_coin{
             border: solid $text-color;
             box-sizing: border-box;
             margin-right: 10px;
-            padding: 5px;
+            padding: 5px;            
         }
     }
     .header__coin-bag{
-        @extend %display;
+        // @extend %display;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         border: solid $text-color;
+        box-sizing: border-box;
         color: aliceblue;
-        margin-left: 20px;
         cursor: pointer;
-        padding: 5px;
+        padding: 5px 20px 5px 20px;
+        .pre-procentage{
+            padding-left: 10px;
+        }
+        .dif-procentage{
+            padding-left: 10px;
+        }
+      
     }
     .header__coin-bag:hover{
         background-color: rgb(175, 172, 172);
+    }
+}
+
+@media (max-width:500px) {
+        .header{
+            display: flex;
+            flex-direction: column;        
+        }
+        .header__coins_popular-list{       
+            display: flex;      
+            justify-content:center;
+            margin-right: 0px;
+            margin-left: 20px;       
+        }
+        .header__coins_popular-list_coin{
+                border: solid $text-color;
+                box-sizing: border-box;
+                margin-right: 0px;
+                margin-left: 10px;           
+        }
+        .header__coin-bag{
+            margin-top: 20px;      
+            display: flex;
+            flex-direction: column;
+        
+        }
+        .pre-procentage{
+            padding-left: 0px;
+        }
+        .dif-procentage{
+            padding-left: 0px;
+        }
+       
+}
+@media (max-width:800px) {
+    .header{
+        display: flex;
+        flex-direction: column;        
+    }
+    .header__coins_popular-list{       
+        display: flex;      
+        justify-content:center;
+        margin-right: 0px;
+        margin-left: 20px;       
+    }
+    .header__coins_popular-list_coin{
+            border: solid $text-color;
+            box-sizing: border-box;
+            margin-right: 0px;
+            margin-left: 10px;           
+    }
+    .header__coin-bag{
+        margin-top: 20px;      
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+       
     }
 }

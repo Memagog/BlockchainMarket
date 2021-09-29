@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate'
 export default function PaginationComponent(props) {
     return (
         <div className="paginationBttns"> 
-            <p className="paginationRow">{props.pageVisited+1 + " - "}{props.pageVisited+props.perPage}</p>           
+            <p className="paginationRow">{props.pageVisited+1 + "-"}{props.pageVisited+props.perPage}</p>           
             <ReactPaginate
                 previousLabel={"<"}
                 nextLabel={">"}

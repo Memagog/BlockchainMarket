@@ -54,14 +54,15 @@ export default function HeaderBag() {
   return (
     <div>
       <div className="header__coin-bag" onClick={handleShow}>
-        <GiReceiveMoney />
         <span>{myMoney.toFixed(2)} USD </span>
-        <span style={{ paddingLeft: '10px' }}>
-          {isNaN(proc) ? 0 : proc.toFixed(3)} %
-        </span>
-        <span style={{ paddingLeft: '10px' }}>
-         ({isNaN(initialDif/myMoney*100)?'0.0':(1-initialDif/myMoney).toFixed(2)} %)
-        </span>
+        <div>
+          <span className="pre-procentage">
+            {isNaN(proc) ? 0 : proc.toFixed(3)} %
+          </span>
+          <span className="dif-procentage">
+            ({isNaN(initialDif/myMoney*100)?'0.0':(1-initialDif/myMoney).toFixed(2)} %)
+          </span>
+        </div>        
       </div>
       <>
         <Modal show={show} onHide={handleClose} size="lg">

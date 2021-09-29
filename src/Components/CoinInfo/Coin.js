@@ -60,27 +60,28 @@ export default function Coin() {
     <div>
       <div className="info-container">
         <div className="info-container_info">
-          <FaBitcoin className="info-container_info_icon" />
+         
           <p>
-            Rank: <span>{coin.rank}</span>
+             <FaBitcoin className="info-container_info_icon" />
+             <span>{coin.name}</span>
+          </p>
+          <p>           
+             <span>Rank: </span> <span>{coin.rank}</span>
           </p>
           <p>
-            CoinName: <span>{coin.name}</span>
+            <span>Symbol: </span> <span>{coin.symbol}</span>
           </p>
           <p>
-            Symbol: <span>{coin.symbol}</span>
+            <span>Capital: </span><span style={{ color: 'green' }}>{(coin.marketCapUsd-0).toFixed(2)}$</span>
           </p>
           <p>
-            MarketCapUsd:<span style={{ color: 'green' }}>{coin.marketCapUsd} $</span>
+            <span>supply: </span><span style={{ color: 'green' }}>{(coin.supply-0).toFixed(4)} </span>
           </p>
           <p>
-            supply:<span style={{ color: 'green' }}>{coin.supply} </span>
+            <span>Volume: </span><span style={{ color: 'green' }}>{(coin.volumeUsd24Hr-0).toFixed(2)}$</span>
           </p>
           <p>
-            VolumeUsd24Hr:<span style={{ color: 'green' }}>{coin.volumeUsd24Hr} $</span>
-          </p>
-          <p>
-            Max Value in 24Hr:<span style={{ color: 'green' }}>{coin.vwap24Hr} $</span>
+            <span>Max Value: </span><span style={{ color: 'green' }}>{(coin.vwap24Hr-0).toFixed(2)}$</span>
           </p>
         </div>
         {data.data.history ? (

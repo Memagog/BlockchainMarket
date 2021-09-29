@@ -54,31 +54,32 @@ export default function MainTable() {
   return (
     <div>
       {main.data.coins ? (
-        <div>
+        <div className = "table-container">
           <table className="table table-dark table-hover">
             <thead>
               <tr>
-                <th scope="col">№</th>
+                <th scope="col" className = 'table-index'>№</th>
                 <th scope="col">Coin</th>
                 <th scope="col">Price</th>
-                <th scope="col">Max value</th>
+                <th scope="col" className = 'coin-bag_table_price-column'>Max value</th>
                 <th scope="col">Days change</th>
-                <th scope="col">Symbol</th>
                 <th scope="col">Add</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className = "table-body">
               {main.data.coins
                 .slice(pageVisited, pageVisited + perPage)
                 .map((el, i) => (
-                  <tr key={i}>
-                    <th scope="row" onClick={() => checkCoin(el)}>{el.rank}</th>
-                    <td onClick={() => checkCoin(el)}>{el.name}</td>
-                    <td onClick={() => checkCoin(el)}>
-                      <div className = 'price-row' data-hover={`${el.priceUsd} $`}>{el.priceUsd.substring(0, 9)} $</div> 
+                  <tr key={i} className = 'table-row'>
+                    <th scope="row" onClick={() => checkCoin(el)} className = 'table-index'>{el.rank}</th>
+                    <td onClick={() => checkCoin(el)} className="">
+                      {el.symbol} 
                     </td>
                     <td onClick={() => checkCoin(el)}>
-                      {el.vwap24Hr.substring(0, 7)} $
+                      <div className = 'hover-row' data-hover={`${el.priceUsd}$`}>{el.priceUsd.substring(0, 9)}$</div> 
+                    </td>
+                    <td onClick={() => checkCoin(el)} className = 'coin-bag_table_price-column'>
+                      {el.vwap24Hr.substring(0, 7)}$
                     </td>
                     {((el.vwap24Hr - el.priceUsd) * 100) / el.vwap24Hr > 0 ? (
                       <td
@@ -101,8 +102,7 @@ export default function MainTable() {
                         ).toFixed(4)}
                         %
                       </td>
-                    )}
-                    <td onClick={() => checkCoin(el)}>{el.symbol}</td>
+                    )}                   
                     <td>
                       <ImPlus
                         className="button-plus"
@@ -125,6 +125,7 @@ export default function MainTable() {
             name={coin.name}
             priceUsd={coin.priceUsd}
             changePercent={coin.changePercent24Hr}
+            symbol = {coin.symbol}
           />
           <InitialCoinBuy show={showInitialModal} handleClose={() => setShowInitialModal(false)}/>
         </div>

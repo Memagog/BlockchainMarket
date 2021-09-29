@@ -38,6 +38,7 @@ export default function CoinBag() {
     console.log()
     if (!isNaN(value - 0)&&(e.count-0)+(value-0)>= 0) {
       setItem({
+        symbol: e.symbol,
         amount: e.price*((e.count-0) + (value-0)) ,
         changePercent24Hr: e.changePercent24Hr,
         count: (e.count - 0) + (value - 0),
@@ -56,12 +57,12 @@ export default function CoinBag() {
       <table className="table table-dark table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col" className = "table-index">#</th>
             <th scope="col">Coin</th>
-            <th scope="col">Price</th>
+            <th scope="col" className = 'coin-bag_table_price-column'>Price</th>
             <th scope="col">Amount</th>
             <th scope="col">
-              <RiArrowUpDownFill style={{ marginLeft: '17px' }} />
+              <RiArrowUpDownFill style={{ marginLeft: '10px' }} />
             </th>
             <th scope="col">Count</th>
             <th scope="col">Change</th>          
@@ -70,32 +71,43 @@ export default function CoinBag() {
         <tbody>
           {storage.map((el, i) => (
             <tr key={i}>
-              <th scope="row">{i + 1}</th>
-              <td>{el.name}</td>
-              <td>{el.price}</td>
-              <td>{(el.amount - 0).toFixed(4)}</td>
+              <th scope="row" className = "table-index">{i + 1}</th>
+              <td>{el.symbol}</td>
+              <td className = 'coin-bag_table_price-column'>{(el.price - 0).toFixed(2)}</td>
+              {el.amount > 999999 || el.amount < 1 ? (
+                <td>
+                  <div className = 'hover-row' data-hover={`${el.amount}$`}>
+                    {(el.amount+"").substring(0,6)}...
+                  </div>
+                </td>
+              ) : (
+                <td>{el.amount.toFixed(2)}</td>
+              )}
               {el.changePercent24Hr - 0 < 0 ? (
                 <td style={{ color: 'red' }}>
-                  {(el.changePercent24Hr - 0).toFixed(2)} %
+                  {(el.changePercent24Hr - 0).toFixed(2)}%
                 </td>
               ) : (
                 <td style={{ color: 'green', paddingLeft: '14px' }}>
-                  {(el.changePercent24Hr - 0).toFixed(2)} %
+                  {(el.changePercent24Hr - 0).toFixed(2)}%
                 </td>
               )}
-              <td>{el.count - 0}</td>
+              {( el.count - 0 ) > 999999 || ( el.count - 0 ) < 1 ? (
+                <td>
+                  <div className = 'hover-row' data-hover={`${el.count}`}>
+                    {(el.count+"").substring(0,6)}...
+                  </div>
+                </td>
+              ) : (
+                <td>{( el.count - 0 ).toFixed(2)}</td>
+              )}
+              {/* <td>{el.count - 0}</td> */}
               <td>
                 <FiPlusSquare
                   className="button-plus"
                   onClick={() => endChose(el)}
                 />
-              </td>
-              {/* <td>
-                <FiMinusSquare
-                  className="button-minus"
-                  onClick={() => endChose(el)}
-                />
-              </td> */}
+              </td>              
             </tr>
           ))}
         </tbody>

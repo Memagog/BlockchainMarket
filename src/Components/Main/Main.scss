@@ -1,11 +1,16 @@
+#root{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .container{
     display: flex;
     justify-content: center;
     flex-direction: column;
     max-width: 1080px;
     height: 100%;   
-    .header{        
-        margin: 20px;
+    .container_header{        
+        // margin: 20px;
         margin-top: 10px;
         margin-bottom: 30px;
         background-color: #212529;        
@@ -25,30 +30,47 @@
     cursor: pointer;
 }
 
-.price-row {
+.hover-row {
   position: relative; 
 }
 
-.price-row:before {
+.hover-row:before {
   content: attr(data-hover);
   visibility: hidden;
   opacity: 0;
-  width: 200px;
+  // width: 200px;
   background-color: black;
   color: #fff;
-  text-align: center;
+  text-align: start;
   border-radius: 5px;
   padding: 5px 0;
-  transition: opacity 0.6s ease-in-out;
-
+  transition: opacity 0.6s ease-in-out;  
   position: absolute;
   z-index: 1;
   left: 0;
   top: 110%;
 }
 
-.price-row:hover:before {
+.hover-row:hover:before {
   opacity: 1;
   visibility: visible;
 }
 
+@media (max-width:500px) {
+  .container{ 
+   max-width: 360px;  
+  }
+  .container_header{
+    max-width: 360px;
+  }
+  .container_table{
+    max-width: 360px;
+    
+  }
+  .table-index{
+    display: none;
+  }
+  .coin-bag_table_price-column{
+    display: none;
+  }    
+}

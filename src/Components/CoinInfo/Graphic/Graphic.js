@@ -39,17 +39,18 @@ export default function App() {
   }, [graphic]);
 
   return (
-    <LineChart width={700} height={700} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
+    <LineChart width={350} height={400} data={data}>
+      <CartesianGrid strokeDasharray="5 5" />
       <XAxis padding={{ left: 40, right: 40 }} />
       <YAxis  type="number" domain={[0, (max+max*0.1)]} />
       <Tooltip />
-      <Legend />
+      {/* <Legend /> */}
       <Line
         type="monotone"
         dataKey="priceUsd"        
-        stroke="#f5f5f5"
-        activeDot={{ r: 8 }}
+        stroke="#ffc107"
+        activeDot={{ r: 4 }}
+        dot={false}
       />
       {/* <Line type="monotone"  stroke="#82ca9d" /> */}
     </LineChart>    

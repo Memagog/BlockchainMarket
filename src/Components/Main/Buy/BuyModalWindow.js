@@ -17,6 +17,7 @@ export default function BuyModalWindow(props) {
                         name={props.name} 
                         priceUsd={props.priceUsd} 
                         changePercent={props.changePercent}
+                        symbol={props.symbol}
                     >
                     </BuyForm>
                 </Modal.Body>

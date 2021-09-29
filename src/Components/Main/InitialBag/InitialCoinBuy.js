@@ -33,6 +33,7 @@ export default function InitialCoinBuy(props) {
       amount: money * target.priceUsd,
       count: money,
       changePercent24Hr: target.changePercent24Hr,
+      symbol: target.symbol
     });    
     setShow(true);
   };
