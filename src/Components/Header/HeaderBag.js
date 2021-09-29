@@ -38,12 +38,12 @@ export default function HeaderBag() {
 
   const initialDif = useMemo(() => {
     let count = 0;
-    let initialCoinBag = JSON.parse(localStorage.getItem('initialCoinBag'));
-    if (initialCoinBag !== null) {
-      initialCoinBag.forEach((e)=>{
+    let init = myBag.coin.initial;
+    if (init !== null) {
+      init.forEach((e)=>{
         count+=e.amount - 0;
       })
-      console.log(initialCoinBag)
+      console.log()
       return count;
     }
     else return 0
@@ -57,10 +57,10 @@ export default function HeaderBag() {
         <span>{myMoney.toFixed(2)} USD </span>
         <div>
           <span className="pre-procentage">
-            {isNaN(proc) ? 0 : proc.toFixed(3)} %
+            {isNaN(proc) ? 0 : proc.toFixed(3)}%
           </span>
           <span className="dif-procentage">
-            ({isNaN(initialDif/myMoney*100)?'0.0':(1-initialDif/myMoney).toFixed(2)} %)
+            ({isNaN((myMoney-initialDif)/initialDif*100)?'0.0':((myMoney-initialDif)/initialDif*100).toFixed(2)}%)
           </span>
         </div>        
       </div>

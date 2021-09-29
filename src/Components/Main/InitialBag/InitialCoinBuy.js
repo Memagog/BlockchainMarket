@@ -1,19 +1,16 @@
 import React from 'react'
-import { FormControl, InputGroup, Modal, ModalTitle } from 'react-bootstrap';
+import { FormControl, InputGroup, Modal } from 'react-bootstrap';
 import { ImPlus } from 'react-icons/im';
 import { RiArrowUpDownFill } from 'react-icons/ri';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { mainData } from './../../../redux/mainSlice';
-import { useMemo, useState, useEffect } from 'react';
-import { coinCount, createBag } from '../../../redux/coinSlice';
+import { useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ModalAgree from './../../ModalAgree/ModalAgree';
+import BuyModalWindow from '../Buy/BuyModalWindow';
 
 export default function InitialCoinBuy(props) {
-  const dispatch = useDispatch();
-  const filter = useSelector(mainData);
-  const initialData = useSelector(coinCount);
-  const [money, setMoney] = useState(0);
+  
+  const filter = useSelector(mainData);  
   const [show, setShow] = useState(false);
   const [coin, setCoin] = useState({});
   const [name, setName] = useState('');
@@ -29,22 +26,13 @@ export default function InitialCoinBuy(props) {
       id: uuidv4(),
       rank: target.rank,
       name: target.name,
-      price: target.priceUsd,
-      amount: money * target.priceUsd,
-      count: money,
+      priceUsd: target.priceUsd,      
       changePercent24Hr: target.changePercent24Hr,
       symbol: target.symbol
     });    
     setShow(true);
   };
-  
-  const dispatchInitialBag = () => {
-    dispatch(createBag(coin));
-    localStorage.setItem('coinBag', JSON.stringify(initialData.coin.initial));
-    localStorage.setItem('initialCoinBag', JSON.stringify(initialData.coin.initial));
-    setShow(false);
-    console.log(initialData.coin.initial);
-  };
+
   return (
     <div>
       <Modal show={props.show} onHide={props.handleClose}>
@@ -52,7 +40,7 @@ export default function InitialCoinBuy(props) {
           <Modal.Title>Create Initial Coin Bag</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <InputGroup className="mb-3">
+          <InputGroup>
             <InputGroup.Text >
               Coin name
             </InputGroup.Text>
@@ -61,17 +49,10 @@ export default function InitialCoinBuy(props) {
                 setName(e.target.value);
               }}
               aria-label="Coin name"
-            />
-            <InputGroup.Text>Value</InputGroup.Text>
-            <FormControl
-              onChange={e => {
-                setMoney(e.target.value);
-              }}
-              aria-label="value"
-            />
+            />            
           </InputGroup>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer style = {{ paddingTop: '40px' }}>
           <table className="table table-dark table-hover">
             <thead>
               <tr>
@@ -110,8 +91,16 @@ export default function InitialCoinBuy(props) {
             </tbody>
           </table>
         </Modal.Footer>
-      </Modal>
-      <ModalAgree show={show} onHide={() => setShow(false)} func = {()=>dispatchInitialBag()}/>
+      </Modal>     
+       <BuyModalWindow
+          show={show}
+          handleClose={() => setShow(false)}
+          name={coin.name}
+          priceUsd={coin.priceUsd}
+          changePercent={coin.changePercent24Hr}
+          symbol = {coin.symbol}
+          init = {'initialBuy'}
+        />
     </div>
   );
 }

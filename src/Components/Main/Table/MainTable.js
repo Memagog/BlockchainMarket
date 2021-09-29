@@ -126,6 +126,7 @@ export default function MainTable() {
             priceUsd={coin.priceUsd}
             changePercent={coin.changePercent24Hr}
             symbol = {coin.symbol}
+            init = {'buy'}
           />
           <InitialCoinBuy show={showInitialModal} handleClose={() => setShowInitialModal(false)}/>
         </div>
