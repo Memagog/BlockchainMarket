@@ -25,11 +25,9 @@ export default function BuyForm(props) {
         dispatch(addCoin(bag));
       }
       else {
-        dispatch(createBag(bag));       
-       
-        // localStorage.setItem('coinBag', JSON.stringify(initialData.coin.initial));
+        dispatch(createBag(bag));     
       }    
-    } else {
+    } else {      
       setErrorShow(true);
     }
   };

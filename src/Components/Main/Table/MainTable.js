@@ -8,11 +8,13 @@ import Reload from '../Reload/Reload';
 import BuyModalWindow from '../Buy/BuyModalWindow';
 import PaginationComponent from './PaginationComponent';
 import InitialCoinBuy from '../InitialBag/InitialCoinBuy';
+import { coinCount } from '../../../redux/coinSlice';
 
 export default function MainTable() {
   const history = useHistory();
 
   const dispatch = useDispatch();
+  const coinBag = useSelector(coinCount)
   const main = useSelector(mainData);
   const [len, setLen] = useState(0);
   const [showByModal, setShowByModal] = useState(false);
@@ -23,13 +25,10 @@ export default function MainTable() {
   const pageVisited = currentPage * perPage;
   const pageCount = Math.ceil(len / perPage);
 
-  useEffect(() => {
-    let initial = JSON.parse(localStorage.getItem('coinBag'));
-    if ( initial.length === 0 ){
+  useEffect(() => {    
+    if ( coinBag.coin.coins  === null || coinBag.coin.coins.length === 0 ){
       setShowInitialModal(true);     
-    }
-    console.log('initial')
-    console.log(initial.length === 0)
+    }   
   }, [])
   useEffect(() => {
     if (main.data.status === 'fin' && main.data.coins !== undefined) {
@@ -42,6 +41,10 @@ export default function MainTable() {
     setShowByModal(true);
   };
 
+  const handleClose = () => {
+    setShowInitialModal(false);
+    localStorage.setItem('initialCoinBag', JSON.stringify(coinBag.coin.initial))
+  }
   const checkCoin = target => {
     localStorage.setItem('select-coin', JSON.stringify(target));
     dispatch(selectCoin(target));
@@ -128,7 +131,7 @@ export default function MainTable() {
             symbol = {coin.symbol}
             init = {'buy'}
           />
-          <InitialCoinBuy show={showInitialModal} handleClose={() => setShowInitialModal(false)}/>
+          <InitialCoinBuy show={showInitialModal} handleClose={handleClose}/>
         </div>
       ) : (
         <Reload />
